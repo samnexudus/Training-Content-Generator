@@ -85,21 +85,40 @@ nexudus-content-generator/
 
 ### For teammates (recommended)
 
-Install directly from the GitHub repo inside Claude Code:
+In Claude Code, run these two commands once:
 
 ```
-/plugin install <github-repo-url>
+/plugin marketplace add samnexudus/Training-Content-Generator
+/plugin install nexudus-content-generator@nexudus-training
 ```
 
-When a new version is released, update with:
+The first command adds this GitHub repo as a "marketplace" (a catalog of plugins).
+The second installs the plugin from it.
+
+After install, trigger the generator any time with:
+
+> "Generate content" or "Generate outputs"
+
+### Staying up to date
+
+Auto-updates are **on by default** for git-based marketplaces — you'll be notified when a new version is available.
+
+To refresh manually:
 
 ```
-/plugin update nexudus-content-generator
+/plugin marketplace update nexudus-training
 ```
 
 ### For local development
 
-Clone the repo and point Claude Code at the local folder via Plugin settings.
+Clone the repo, then add it as a local marketplace:
+
+```
+/plugin marketplace add /absolute/path/to/Training-Content-Generator
+/plugin install nexudus-content-generator@nexudus-training
+```
+
+Edit files in place — changes apply on the next Claude Code session reload.
 
 ## Prerequisites — one-time setup per machine
 

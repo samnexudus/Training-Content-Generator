@@ -1,0 +1,17 @@
+{
+  "name": "nexudus-training",
+  "owner": {
+    "name": "Nexudus Academy",
+    "email": "training@nexudus.com"
+  },
+  "plugins": [
+    {
+      "name": "nexudus-content-generator",
+      "source": ".",
+      "description": "Generate first-draft Nexudus training content from a feature brief — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons.",
+      "author": {
+        "name": "Nexudus Academy"
+      }
+    }
+  ]
+}
