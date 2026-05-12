@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Claude Code per-user session data
+.claude/
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Node (for any optional docx-js work)
+node_modules/
+
+# OS temp files
+*~
+.*.tmp
+
+# Generated content output (created on user's Desktop, not in repo)
+# — not strictly needed since it's outside the repo, but keep here as a guard
+output/
+generated/
+
+# Unzipped SCORM packages — redundant with the .zip files in the same folder.
+# Anyone needing to inspect the contents can unzip locally.
+examples/academy-lessons/*-scorm2004_4-*/**

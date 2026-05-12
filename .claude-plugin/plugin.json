@@ -1,0 +1,25 @@
+{
+  "name": "nexudus-content-generator",
+  "version": "0.3.0",
+  "description": "Generate first-draft Nexudus training content from a feature brief — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons. Uses a local example library as the primary style reference and pulls live data from the Nexudus CLI for realistic demo steps.",
+  "author": "Nexudus Academy",
+  "requirements": {
+    "cli": ["nexudus"],
+    "python": ["python-docx"],
+    "access": ["Nexudus Academy account via nexudus CLI"]
+  },
+  "skills": [
+    {
+      "name": "generate-content",
+      "path": "skills/generate-content/SKILL.md",
+      "description": "Generate Nexudus training content (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson) from pasted feature briefs or release notes"
+    }
+  ],
+  "agents": [
+    {
+      "name": "content-writer",
+      "path": "agents/content-writer.md",
+      "description": "Specialist content writer for Nexudus training materials"
+    }
+  ]
+}
