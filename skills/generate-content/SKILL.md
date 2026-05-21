@@ -133,12 +133,11 @@ Feature name and section breakdown are derived from the feature input — no nee
 
 ```
 **Academy Lesson**
-- Course or module this lesson belongs to (if known):
-- Audience: internal staff, customers, or both?
-- Target completion time (minutes):
-- SCORM version: 1.2 or 2004?
+- Course name (what should the course be called?):
+- How many content lessons? (e.g. one lesson covering everything, or split by topic):
+- Version number (default: v2.01):
 - Will this lesson include a recorded walkthrough video?
-- Preferred Rise interaction types (accordion, scenario, labelled graphic, etc.)? Leave blank to use defaults.
+- Any specific Rise interaction types to use or avoid? (defaults: Process for workflows, Accordion for multi-concept sections)
 ```
 
 ---
@@ -380,32 +379,55 @@ Use real resource and member names from CLI data in all demo steps and activity 
 
 **Load before generating:**
 - `reference/docx-generation.md` — `python-docx` boilerplate and helpers (always)
-- `reference/academy-lesson-template.md` — Rise block structure and writing guidelines
-- Check `examples/academy-lessons/` — note: these are SCORM ZIPs, not editable docs. Use as scope/topic reference only.
+- `reference/academy-lesson-template.md` — Rise block structure, writing guidelines, and real examples
 
 **Document structure** (Rise block outline):
+
+Every course has a **course cover page**, one or more **content lessons**, and a fixed **Summary lesson** at the end.
+
 ```
-LESSON TITLE: [Feature Name] — [Short subtitle]
-COURSE: [course name]
-AUDIENCE: [Internal / Customer-facing / Both]
-ESTIMATED TIME: [~X mins]
-VERSION: v1.0
+COURSE: [Course name]
+SCORM VERSION: SCORM 2004 4th Edition
+VERSION: v2.XX
+FILE: [Course Name] - Academy Lesson.docx
 
-[COVER BLOCK] — title, subtitle, background image note
-[INTRO BLOCK] — objectives (2–4, action verb + outcome)
-[SECTION DIVIDER] — Learn
-[CONTENT BLOCK(S)] — explanations, with image/GIF notes
-[SECTION DIVIDER] — Do
-[INTERACTION BLOCK(S)] — scenario, labelled graphic, or process
-[KNOWLEDGE CHECK] — 2–4 quiz questions with feedback
-[SECTION DIVIDER] — Summary
-[SUMMARY BLOCK] — key points
-[OUTRO BLOCK] — next steps and resource links
+---
+
+COURSE COVER PAGE
+[1–2 sentences on what the feature is and why it matters]
+By the end of this course, you will be able to:
+- [Objective 1 — action verb + outcome]
+- [Objective 2]
+Click Start to begin!
+The content and images in this course are accurate as of publication but may change over time.
+Images are for illustration only and may differ from what appears on your system.
+Version [X.XX]
+
+---
+
+LESSON [N]: [Topic name]
+
+  [TEXT BODY] — overview paragraph
+  [TEXT HEADING] — sub-topic heading
+  [TEXT BODY] — explanation (2–4 sentences per block)
+  [IMAGE] — screenshot + descriptive caption
+  [INTERACTIVE — INTERACTIVE:PROCESS] — step-by-step workflow (with INTRO + numbered steps + SUMMARY)
+  [INTERACTIVE — INTERACTIVE:ACCORDION] — expandable multi-concept sections
+  [TEXT HEADING] Knowledge Check
+  [TEXT BODY] — hands-on activity prompt, OR [KNOWLEDGE CHECK / QUIZ] — quiz questions with feedback
+
+--- (repeat for each content lesson)
+
+LESSON: Summary  ← always the final lesson, always titled "Summary"
+
+  [QUOTE] You should now be able to: [restate objectives]
+  [VIDEO/MULTIMEDIA] <iframe src="https://airtable.com/embed/appdInia1qyUjAidC/paghPEvcF3ZihmLQt/form?prefill_Course+Name=[URL-encoded name]" frameborder="0" width="100%" height="600px"></iframe>
+  [CONTINUE] FINISH COURSE
 ```
 
-**Knowledge check questions:** test application, not recall. Always include corrective feedback for wrong answers.
+**Knowledge check rules:** test application, not recall. 5–12 questions depending on lesson length. Types: multiple choice, true/false, fill-in-blank, matching. Always include corrective feedback for wrong answers. Mark correct answer with ✓.
 
-**File naming:** `[Feature Name] - Academy Lesson.docx`
+**File naming:** `[Course Name] - Academy Lesson.docx`
 
 ---
 
