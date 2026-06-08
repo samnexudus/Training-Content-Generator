@@ -6,11 +6,11 @@ Generate training and product content for Nexudus features. Supports five output
 
 | Type | Audience | Output |
 |---|---|---|
-| Product Update | Space operators and customers (external) | `.docx` |
-| Webinar Brief | Training team and webinar hosts (internal) | `.docx` |
-| Video Script | Nexudus Unlocked YouTube series (external) | `.docx` |
-| Training Script | Internal micro-learning sessions | `.docx` |
-| Academy Lesson | Nexudus Academy LMS / Articulate Rise (internal or customer) | `.docx` |
+| Product Update | Space operators and customers (external) | `.html` |
+| Webinar Brief | Training team and webinar hosts (internal) | `.html` |
+| Video Script | Nexudus Unlocked YouTube series (external) | `.html` |
+| Training Script | Internal micro-learning sessions | `.html` |
+| Academy Lesson | Nexudus Academy LMS / Articulate Rise (internal or customer) | `.html` |
 
 ## Trigger phrases
 
@@ -148,30 +148,11 @@ Once all answers are received, generate the selected outputs. If multiple types 
 
 ### Generation mechanism
 
-**Always** generate `.docx` files by writing a Python script that uses `python-docx`. Do not try to use the `anthropic-skills:docx` skill to produce the file — it is a knowledge skill that returns instructions, not a tool that creates files for you.
+**Always** generate `.html` files by writing a Python script that writes HTML directly to disk. No external dependencies are required — Python's built-in file I/O is sufficient.
 
-Before writing the script, run a one-time dependency check:
+**Load `reference/docx-generation.md` before writing any generator script.** Despite the filename, it now contains the HTML boilerplate (page layout, Nexudus typography, helper patterns, table structure) that produces correctly-formatted output. Copy those patterns rather than re-inventing them.
 
-```bash
-python3 -c "import docx" 2>&1
-```
-
-If it errors, install:
-
-```bash
-pip3 install python-docx
-```
-
-Mention any install in your final summary so the user knows.
-
-**Load `reference/docx-generation.md` before writing any generator script.** It contains the
-boilerplate (page setup, font fallbacks, heading styles, helper functions, table patterns)
-that has been proven to produce correctly-formatted output. Copy those patterns rather than
-re-inventing them — getting fonts, list numbering, and table shading right from scratch is
-slow and error-prone.
-
-Write each generator script to `/tmp/gen_[output_type].py`, run it with `python3`, then move
-on. One script per output type.
+Write each generator script to `/tmp/gen_[output_type].py`, run it with `python3`, then move on. One script per output type.
 
 Follow the per-type generation instructions below.
 
@@ -226,7 +207,7 @@ Notes:
 
 **Validate against `reference/format-quick-check.md` before saving.**
 
-**File naming:** `[Feature Name] - Product Update.docx`
+**File naming:** `[Feature Name] - Product Update.html`
 
 ---
 
@@ -263,7 +244,7 @@ Use real resource and member names from CLI data in all Demonstrate: steps.
 - "Explain:" and "Demonstrate:" labels bold; numbered demo steps restart at 1 per row
 - Metadata table: left column `#F2F2F2` shading, bold labels
 
-**File naming:** `[Feature Name] - Webinar Brief.docx`
+**File naming:** `[Feature Name] - Webinar Brief.html`
 
 ---
 
@@ -311,7 +292,7 @@ That's about it for this Nexudus Unlocked! As always, if you have any questions,
 - Bold navigation paths and UI elements exactly as in product updates
 - Use the standard close line verbatim — do not paraphrase
 
-**File naming:** `[Feature Name] - Unlocked Video Script.docx`
+**File naming:** `[Feature Name] - Unlocked Video Script.html`
 
 ---
 
@@ -371,7 +352,7 @@ Section 3: Apply ([X] minutes)
 
 Use real resource and member names from CLI data in all demo steps and activity scenarios.
 
-**File naming:** `[Feature Name] - Training Script.docx`
+**File naming:** `[Feature Name] - Training Script.html`
 
 ---
 
@@ -427,21 +408,23 @@ LESSON: Summary  ← always the final lesson, always titled "Summary"
 
 **Knowledge check rules:** test application, not recall. 5–12 questions depending on lesson length. Types: multiple choice, true/false, fill-in-blank, matching. Always include corrective feedback for wrong answers. Mark correct answer with ✓.
 
-**File naming:** `[Course Name] - Academy Lesson.docx`
+**File naming:** `[Course Name] - Academy Lesson.html`
 
 ---
 
-## Shared docx formatting standards
+## Shared HTML formatting standards
 
 Apply to all output types:
 
-- **Page:** US Letter (12240 × 15840 DXA), 1-inch margins (1440 DXA each side)
-- **Font:** Arial, 12pt default
-- **Title:** Heading 1 style
-- **Lists:** LevelFormat.BULLET / LevelFormat.DECIMAL with numbering config — never unicode bullets or `\n`
-- **Tables:** WidthType.DXA always (never PERCENTAGE); cell margins top/bottom 80, left/right 120; ShadingType.CLEAR (never SOLID)
-- **PageBreak:** must be inside a Paragraph element
-- **Bold:** all navigation paths and UI element names used as actions
+- **Font:** Arial (with sans-serif fallback), 14px default body
+- **Title:** `<h1>` — bold, black
+- **Headings:** `<h2>`, `<h3>`, `<h4>` — Arial, bold, black
+- **Lists:** standard `<ul>` / `<ol>` — never hardcoded bullet characters
+- **Tables:** full-width, collapsed borders, `#CCCCCC` border colour, `#F2F2F2` alternating row shading
+- **Bold:** all navigation paths and UI element names used as actions — wrap in `<strong>`
+- **Callouts:** italic paragraphs with a left border for *Important to Note* style notes
+- **Media placeholders:** grey italic `<p>` tags, e.g. `[GIF — show ...]`
+- **Page width:** max 900px, centred, with 40px padding
 
 ---
 

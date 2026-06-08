@@ -1,31 +1,21 @@
-# .docx Generation — Working Patterns
+# HTML Generation — Working Patterns
 
-The plugin generates `.docx` files using **`python-docx`** (Python). This file contains the
-boilerplate patterns proven to work for Product Updates, Webinar Briefs, Training Scripts,
-Video Scripts, and Academy Lessons.
+All content types (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson)
+are generated as `.html` files using Python's built-in file I/O. No external dependencies required.
 
-**Always use these patterns rather than re-inventing them.** They handle the things that go
-wrong when generating Word docs from scratch: font fallbacks on Windows, list numbering,
-table shading, and heading styles.
+**Always use these patterns rather than re-inventing them.** They handle typography, navigation
+path bolding, callout styles, table formatting, and media placeholders consistently across all
+output types.
 
 ---
 
 ## Prerequisites check
 
-Before generating, confirm `python-docx` is available:
+No dependencies needed. Python 3 is sufficient:
 
 ```bash
-python3 -c "import docx" 2>&1
+python3 --version
 ```
-
-If it errors, install it:
-
-```bash
-pip3 install python-docx
-```
-
-This is a one-time setup per machine. If the user is new to the plugin, mention this in the
-final summary so they know what was installed.
 
 ---
 
@@ -41,60 +31,104 @@ Create the directory if it doesn't exist (`os.makedirs(..., exist_ok=True)`).
 
 ---
 
-## Boilerplate — page setup, fonts, heading styles
+## Boilerplate — page setup, fonts, base styles
 
-Use this opening block in **every** generator script. It produces US Letter, 1-inch margins,
-Arial 12pt body, Arial black headings, and ensures the font sticks on Windows.
+Use this opening block in **every** generator script.
 
 ```python
-from docx import Document
-from docx.shared import Pt, Inches, RGBColor
-from docx.oxml.ns import qn
-from docx.oxml import OxmlElement
 import os
 
-OUT_DIR = os.path.expanduser("~/Desktop/Nexudus Content/[Feature Name]")
+FEATURE = "[Feature Name]"
+OUT_DIR = os.path.expanduser(f"~/Desktop/Nexudus Content/{FEATURE}")
 os.makedirs(OUT_DIR, exist_ok=True)
-OUT = os.path.join(OUT_DIR, "[Feature Name] - [Output Type].docx")
+OUT = os.path.join(OUT_DIR, f"{FEATURE} - [Output Type].html")
 
-doc = Document()
+CSS = """
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #111;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+}
+h1 { font-size: 24px; font-weight: bold; margin: 0 0 16px; }
+h2 { font-size: 20px; font-weight: bold; margin: 32px 0 12px; }
+h3 { font-size: 17px; font-weight: bold; margin: 24px 0 10px; }
+h4 { font-size: 14px; font-weight: bold; margin: 20px 0 8px; }
+p  { margin: 0 0 12px; }
+ul, ol { margin: 0 0 12px 24px; }
+li { margin-bottom: 4px; }
+strong { font-weight: bold; }
+em { font-style: italic; }
+hr { border: none; border-top: 1px solid #CCC; margin: 24px 0; }
+.notes {
+    background: #F9F9F9;
+    border-left: 4px solid #CCC;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 13px;
+}
+.notes p { margin-bottom: 6px; }
+.callout {
+    border-left: 4px solid #1F4E79;
+    padding: 8px 12px;
+    margin: 12px 0;
+    font-style: italic;
+    color: #333;
+}
+.media {
+    color: #707070;
+    font-style: italic;
+    margin: 8px 0 12px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+}
+th {
+    background: #1F4E79;
+    color: #FFF;
+    font-weight: bold;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid #CCC;
+}
+td {
+    padding: 8px 10px;
+    border: 1px solid #CCC;
+    vertical-align: top;
+}
+tr:nth-child(even) td { background: #F2F2F2; }
+.meta-table td:first-child {
+    background: #F2F2F2;
+    font-weight: bold;
+    width: 200px;
+}
+"""
 
-# Page setup — US Letter, 1-inch margins
-for section in doc.sections:
-    section.page_width = Inches(8.5)
-    section.page_height = Inches(11)
-    section.top_margin = Inches(1)
-    section.bottom_margin = Inches(1)
-    section.left_margin = Inches(1)
-    section.right_margin = Inches(1)
+lines = []
 
-# Default font: Arial 12pt — apply at the style level AND patch rFonts directly,
-# otherwise Word on Windows may fall back to Calibri.
-style = doc.styles["Normal"]
-style.font.name = "Arial"
-style.font.size = Pt(12)
-rPr = style.element.get_or_add_rPr()
-rFonts = rPr.find(qn("w:rFonts"))
-if rFonts is None:
-    rFonts = OxmlElement("w:rFonts")
-    rPr.append(rFonts)
-for attr in ("w:ascii", "w:hAnsi", "w:cs", "w:eastAsia"):
-    rFonts.set(qn(attr), "Arial")
-
-# Heading styles — Arial, black, bold
-for h, size in [("Heading 1", 20), ("Heading 2", 16), ("Heading 3", 13)]:
-    st = doc.styles[h]
-    st.font.name = "Arial"
-    st.font.size = Pt(size)
-    st.font.color.rgb = RGBColor(0, 0, 0)
-    st.font.bold = True
-    rpr = st.element.get_or_add_rPr()
-    rf = rpr.find(qn("w:rFonts"))
-    if rf is None:
-        rf = OxmlElement("w:rFonts")
-        rpr.append(rf)
-    for a in ("w:ascii", "w:hAnsi", "w:cs", "w:eastAsia"):
-        rf.set(qn(a), "Arial")
+def write_file():
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{FEATURE}</title>
+<style>{CSS}</style>
+</head>
+<body>
+{"".join(lines)}
+</body>
+</html>"""
+    with open(OUT, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Saved: {OUT}")
 ```
 
 ---
@@ -102,177 +136,161 @@ for h, size in [("Heading 1", 20), ("Heading 2", 16), ("Heading 3", 13)]:
 ## Helper functions — use these everywhere
 
 ```python
-def mixed(parts):
-    """Single paragraph with mixed bolding. parts = list of (text, bold) tuples."""
-    p = doc.add_paragraph()
-    for t, b in parts:
-        r = p.add_run(t)
-        r.bold = b
-        r.font.name = "Arial"
-        r.font.size = Pt(12)
-    return p
+import html as html_lib
+
+def esc(text):
+    """Escape special HTML characters."""
+    return html_lib.escape(str(text))
 
 
-def bullet(parts):
-    """Bulleted list item with mixed bolding."""
-    p = doc.add_paragraph(style="List Bullet")
-    for t, b in parts:
-        r = p.add_run(t); r.bold = b
-        r.font.name = "Arial"; r.font.size = Pt(12)
+def h(level, text):
+    lines.append(f"<h{level}>{esc(text)}</h{level}>\n")
 
 
-def numbered(parts):
-    """Numbered list item with mixed bolding."""
-    p = doc.add_paragraph(style="List Number")
-    for t, b in parts:
-        r = p.add_run(t); r.bold = b
-        r.font.name = "Arial"; r.font.size = Pt(12)
+def p(parts):
+    """Paragraph with mixed bold. parts = list of (text, bold) tuples."""
+    inner = "".join(f"<strong>{esc(t)}</strong>" if b else esc(t) for t, b in parts)
+    lines.append(f"<p>{inner}</p>\n")
 
 
-def callout_italic(text):
-    """*Important to Note:* style callout."""
-    p = doc.add_paragraph()
-    r = p.add_run(text)
-    r.italic = True
-    r.font.name = "Arial"; r.font.size = Pt(12)
+def bullet_list(items):
+    """Bulleted list. Each item is a list of (text, bold) tuples."""
+    lines.append("<ul>\n")
+    for item in items:
+        inner = "".join(f"<strong>{esc(t)}</strong>" if b else esc(t) for t, b in item)
+        lines.append(f"  <li>{inner}</li>\n")
+    lines.append("</ul>\n")
+
+
+def numbered_list(items):
+    """Numbered list. Each item is a list of (text, bold) tuples."""
+    lines.append("<ol>\n")
+    for item in items:
+        inner = "".join(f"<strong>{esc(t)}</strong>" if b else esc(t) for t, b in item)
+        lines.append(f"  <li>{inner}</li>\n")
+    lines.append("</ol>\n")
+
+
+def callout(text):
+    """*Important to Note:* style callout — left-bordered italic block."""
+    lines.append(f'<div class="callout">{esc(text)}</div>\n')
 
 
 def media(text):
     """Grey italic media placeholder, e.g. [GIF — show ...]"""
-    p = doc.add_paragraph()
-    r = p.add_run(text)
-    r.italic = True
-    r.font.color.rgb = RGBColor(0x70, 0x70, 0x70)
-    r.font.name = "Arial"; r.font.size = Pt(12)
+    lines.append(f'<p class="media">{esc(text)}</p>\n')
 
 
 def hr():
-    """Horizontal rule via paragraph border."""
-    p = doc.add_paragraph()
-    pPr = p._p.get_or_add_pPr()
-    pBdr = OxmlElement("w:pBdr")
-    bot = OxmlElement("w:bottom")
-    bot.set(qn("w:val"), "single"); bot.set(qn("w:sz"), "6")
-    bot.set(qn("w:space"), "1"); bot.set(qn("w:color"), "CCCCCC")
-    pBdr.append(bot); pPr.append(pBdr)
+    lines.append("<hr>\n")
+
+
+def notes_block(pairs):
+    """Internal notes block at the top. pairs = list of (label, value) tuples."""
+    lines.append('<div class="notes">\n')
+    for label, value in pairs:
+        lines.append(f"  <p><strong>{esc(label)}</strong> {esc(value)}</p>\n")
+    lines.append('</div>\n')
 ```
 
 ---
 
 ## Bolding navigation paths and UI elements
 
-Use `mixed()` for any paragraph that contains a bolded navigation path or UI element name.
-Bold all of: navigation paths, button names used as actions, dropdown/field labels.
+Use the `parts` tuple pattern — `(text, bold)` — in `p()`, `bullet_list()`, and `numbered_list()`:
 
 ```python
-# Step with bolded path and button
-numbered([
-    ("Navigate to ", False),
-    ("Resources > Resource Rules", True),   # bolded path
-    (".", False),
-])
+p([("Navigate to ", False), ("Settings > Network > Settings Templates", True), (".", False)])
 
-numbered([
-    ("Click ", False),
-    ("+ Add rule", True),                   # bolded action
-    (".", False),
+numbered_list([
+    [("Navigate to ", False), ("Settings > Network > Settings Templates", True), (".", False)],
+    [("Click ", False), ("+ New template", True), (".", False)],
+    [("Click ", False), ("Save", True), (".", False)],
 ])
 ```
 
 ---
 
-## Tables (used in Webinar Briefs)
+## Tables
 
-Tables need correct shading (`ShadingType.CLEAR`, never `SOLID`), grey borders, and explicit
-column widths.
+### Content table (e.g. Webinar Brief)
 
 ```python
-from docx.shared import Inches
-
-def set_cell_shading(cell, color_hex):
-    tcPr = cell._tc.get_or_add_tcPr()
-    shd = OxmlElement("w:shd")
-    shd.set(qn("w:val"), "clear")
-    shd.set(qn("w:color"), "auto")
-    shd.set(qn("w:fill"), color_hex)
-    tcPr.append(shd)
-
-
-def set_cell_borders(cell, color="CCCCCC", size="4"):
-    tcPr = cell._tc.get_or_add_tcPr()
-    tcBorders = OxmlElement("w:tcBorders")
-    for edge in ("top", "left", "bottom", "right"):
-        b = OxmlElement(f"w:{edge}")
-        b.set(qn("w:val"), "single")
-        b.set(qn("w:sz"), size)
-        b.set(qn("w:color"), color)
-        tcBorders.append(b)
-    tcPr.append(tcBorders)
-
-
-# Two-column table — typical webinar brief content table
-table = doc.add_table(rows=1, cols=2)
-table.autofit = False
-hdr = table.rows[0]
-hdr.cells[0].width = Inches(2)
-hdr.cells[1].width = Inches(5.5)
-for cell, label in zip(hdr.cells, ["Topic / Section", "Points to touch on"]):
-    set_cell_shading(cell, "1F4E79")   # Nexudus blue header
-    set_cell_borders(cell)
-    p = cell.paragraphs[0]
-    r = p.add_run(label); r.bold = True
-    r.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
-    r.font.name = "Arial"; r.font.size = Pt(11)
+def content_table(headers, rows):
+    """
+    headers: list of column header strings
+    rows: list of lists of HTML strings (pre-escaped or raw HTML)
+    """
+    lines.append("<table>\n<thead><tr>\n")
+    for h_text in headers:
+        lines.append(f"  <th>{esc(h_text)}</th>\n")
+    lines.append("</tr></thead>\n<tbody>\n")
+    for row in rows:
+        lines.append("<tr>\n")
+        for cell in row:
+            lines.append(f"  <td>{cell}</td>\n")
+        lines.append("</tr>\n")
+    lines.append("</tbody></table>\n")
 ```
 
-For metadata tables (label/value pairs), use `F2F2F2` shading on the label column.
+### Metadata table (label / value pairs)
+
+```python
+def meta_table(pairs):
+    """Label-value pairs with shaded label column."""
+    lines.append('<table class="meta-table">\n<tbody>\n')
+    for label, value in pairs:
+        lines.append(f"<tr><td>{esc(label)}</td><td>{esc(value)}</td></tr>\n")
+    lines.append("</tbody></table>\n")
+```
 
 ---
 
 ## Working script structure
 
 ```python
-# 1. Setup (page, fonts, headings) — copy boilerplate above
-# 2. Helper functions — copy from above
-# 3. Document content — call helpers in order:
+# 1. Setup (CSS, helpers, output path) — copy boilerplate above
+# 2. Build document content using helpers:
 
-doc.add_heading("[Feature Name]", level=1)
-
-mixed([
-    ("Opening paragraph with ", False),
-    ("Resources > Resource Rules", True),
-    (" bolded path.", False),
+notes_block([
+    ("Figma:", "https://www.figma.com/..."),
+    ("Basecamp:", "[TBC]"),
+    ("Session recording:", "[TBC]"),
 ])
 
-doc.add_heading("Admin Panel", level=2)
-doc.add_heading("1. Sub-feature", level=3)
+h(1, "Feature Name: Product Update")
+
+p([("Opening paragraph. ", False), ("Bold path example", True), (".", False)])
+
+h(2, "Admin Panel")
+h(3, "1. Sub-feature")
 
 media("[GIF — show ...]")
 
-mixed([("Description paragraph.", False)])
+p([("Description of what this does and why it matters.", False)])
 
-numbered([("Navigate to ", False), ("Path", True), (".", False)])
-numbered([("Click ", False), ("Save changes", True), (".", False)])
+numbered_list([
+    [("Navigate to ", False), ("Settings > Section", True), (".", False)],
+    [("Click ", False), ("Save changes", True), (".", False)],
+])
 
-callout_italic("Important to Note: ...")
+callout("Important to Note: Relevant behavioural note here.")
 
-# 4. Save
-doc.save(OUT)
-print(f"Saved: {OUT}")
+hr()
+
+# 3. Write file
+write_file()
 ```
 
 ---
 
 ## What NOT to do
 
-- ❌ Don't write the .docx via raw XML — use `python-docx` helpers
-- ❌ Don't use unicode bullets (`•`) in text — use `style="List Bullet"`
-- ❌ Don't use `\n` for line breaks — each line is its own paragraph
-- ❌ Don't set `WidthType.PERCENTAGE` on tables — use absolute widths in inches/DXA
-- ❌ Don't skip the `rFonts` patching — Word on Windows will silently fall back to Calibri
-- ❌ Don't try to use the `anthropic-skills:docx` skill to "produce" the file — it's a
-  knowledge skill that returns instructions, not a tool that creates the file. Use these
-  patterns directly.
+- ❌ Don't hardcode bullet characters (`•`, `–`) — use `<ul>` / `<ol>`
+- ❌ Don't use `\n` inside HTML strings for line breaks — use separate helper calls
+- ❌ Don't build raw HTML strings without escaping user content — always use `esc()`
+- ❌ Don't use inline `style=""` attributes — all styles are in the CSS block at the top
+- ❌ Don't produce `.docx` files — all output is `.html`
 
 ---
 
