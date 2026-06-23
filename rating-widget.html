@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rate Your Onboarding – Nexudus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 60px 40px;
+      background: #EEF0F7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: #FDFDFD;
+      border-radius: 0;
+      width: 920px;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(33,44,106,0.12), 0 2px 8px rgba(33,44,106,0.06);
+    }
+
+    .accent-bar {
+      height: 8px;
+      background: #FE4D00;
+    }
+
+    .card-body {
+      padding: 56px 72px 52px;
+    }
+
+    .question {
+      font-family: 'Parkinsans', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 38px;
+      font-weight: 600;
+      color: #212C6A;
+      text-align: center;
+      margin: 0 0 52px;
+      line-height: 1.25;
+    }
+
+    .stars-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .star-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .star-svg {
+      width: 56px;
+      height: 56px;
+    }
+
+    .star-number {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #535060;
+    }
+
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 28px;
+    }
+
+    .range-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #535060;
+    }
+
+    .card-footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid #F0EEF5;
+      text-align: right;
+    }
+
+    .brand-tag {
+      font-family: 'Parkinsans', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #FE4D00;
+      letter-spacing: 0.01em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="accent-bar"></div>
+    <div class="card-body">
+
+      <p class="question">Rate your onboarding experience</p>
+
+      <div class="stars-row">
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">1</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">2</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">3</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">4</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">5</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">6</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">7</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">8</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">9</span>
+        </div>
+
+        <div class="star-item">
+          <svg class="star-svg" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0,-20 L 4.70,-6.47 L 19.02,-6.18 L 7.61,2.47 L 11.76,16.18 L 0,8 L -11.76,16.18 L -7.61,2.47 L -19.02,-6.18 L -4.70,-6.47 Z" fill="#FE4D00"/>
+          </svg>
+          <span class="star-number">10</span>
+        </div>
+
+      </div>
+
+      <div class="range-labels">
+        <span class="range-label">Very poor</span>
+        <span class="range-label">Excellent</span>
+      </div>
+
+      <div class="card-footer">
+        <span class="brand-tag">Nexudus</span>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
