@@ -1,6 +1,16 @@
-# PR Source Guide — Extracting Feature Content from Pull Requests
+# PR Source Guide — Extracting Feature Content from Pull Requests and Branches
 
-When the user names a specific PR as the source for training content, use this guide to extract everything needed before generating. A PR tells you *what changed mechanically*; the product update format still needs the *operator-facing benefit* — ask the user for that in one line if the PR description doesn't carry it.
+When the user names a specific PR or branch as the source for training content, use this guide to extract everything needed before generating. A change set tells you *what changed mechanically*; the product update format still needs the *operator-facing benefit* — ask the user for that in one line if the commit messages or PR description don't carry it.
+
+## Branch mode
+
+The same reading order and label-resolution rules below apply whether the source is a single PR or a whole branch. Differences:
+
+- **Change set:** use the cumulative diff against the base branch, not per-commit diffs. Treat the branch as one change set: `git diff origin/<base>...<branch>`.
+- **Description substitute:** commit messages stand in for the PR description. Subjects give intent; bodies may carry detail, ticket links, or rollout notes. Run `git log origin/<base>..<branch> --oneline --stat` first to get both the message list and a per-commit file map in one pass.
+- **Many commits:** reverts, fixups, and refactor commits are noise. The cumulative diff already netting them out is authoritative — read individual commits only when the cumulative diff is ambiguous (e.g. to recover a feature name from an early commit message).
+- **Base branch:** never assume it — confirm with the user which branch the feature was branched from.
+- **Unpulled branches:** `git fetch origin <branch>` pulls just that branch without checking it out. If the remote branch doesn't exist, fall back to asking the user to paste the material.
 
 ## Which repo = which product surface
 
@@ -93,13 +103,14 @@ Sprint PRs often ship several unrelated changes. Before generating:
 - Number them 1–N
 - If the PR is genuinely one big feature with many parts, group by surface (Admin Panel / Members Portal) instead
 
-### Unmerged or un-pulled PRs
+### Unmerged or un-pulled PRs and branches
 
-If the PR isn't in the local checkout:
+If the PR or branch isn't in the local checkout:
 
 - Merged PRs: `git log --all --grep="<PR title>"` or check out the merge commit
-- Unmerged: `git fetch origin pull/<PR number>/head` then inspect the fetched ref
-- If neither works, ask the user to paste the PR description and diff
+- Unmerged PRs: `git fetch origin pull/<PR number>/head` then inspect the fetched ref
+- Remote branches: `git fetch origin <branch>` then diff against the base (no checkout needed)
+- If none of these work, ask the user to paste the PR description and diff
 
 ## Checklist before generating
 

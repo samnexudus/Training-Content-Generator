@@ -20,12 +20,13 @@ Generate training and product content for Nexudus features. Supports five output
 - "video script", "unlocked script", "write a video script"
 - "training script", "write a training script"
 - "academy lesson", "create an academy lesson"
+- Branch-scan mode: "scan branch [name]", "check what changed on [branch]", "generate a [content type] from branch [name]", "look at branch [name] and create [content type]"
 
 ---
 
 ## STEP 1 — Ask which content types to generate
 
-Always ask this first, before requesting any source material:
+Always ask this first, before requesting any source material — even if the user already named a content type in their request, present the full list so they can confirm or add more:
 
 > "Which content would you like me to generate? I can produce any or all of the following:
 >
@@ -43,13 +44,87 @@ Wait for confirmation before proceeding to Step 2.
 
 ## STEP 2 — Gather feature input
 
-Once the content types are confirmed, ask for the source material:
+Once the content types are confirmed, determine which input mode applies:
+
+- **Mode A — Paste source material:** the user pastes Basecamp text, a product brief, release notes, screenshots, or their own description.
+- **Mode B — Scan a branch:** the user names a branch (and optionally a repo and content type) and asks you to scan the code to work out what changed.
+
+If it's unclear which mode the user wants, ask:
+
+> "Would you like to paste the source material (Basecamp text, a product brief, release notes, or your own description), or should I scan a branch in one of the Nexudus repos to work out what changed?"
+
+---
+
+### Mode A — Paste source material
+
+Ask for the source material:
 
 > "Please paste the source material for this feature — this can be Basecamp text, a product brief, release notes, or your own description. The more detail the better."
 
 If the user wants to pull notes directly from a FigJam board, ask them to paste the content — direct FigJam reads are not currently supported by this plugin.
 
-### Pull CLI context (run as soon as source material is received)
+---
+
+### Mode B — Scan a branch
+
+**Load `reference/pr-source-guide.md` before doing anything else in this mode.** It is the single source of truth for how to read a change set: which repo maps to which product surface, the reading order (description → changed files → diff), how to resolve exact UI labels from i18n strings, and the caveats for feature flags, backend-only changes, and multi-feature branches.
+
+#### B1 — Locate the branch
+
+Repos live in `~/Desktop/Nexudus Products/`:
+
+| Repo | Product surface |
+|---|---|
+| `nexudus-coworking-admin-v3.2` | Admin Panel |
+| `nexudus-coworking-ecommerce` | Members Portal |
+| `Nexudus.Coworking` | Backend / API |
+
+- If the user named the repo, use it. Otherwise auto-detect: check each repo for the branch (`git fetch origin && git branch -a | grep <branch-name>`).
+- Found in exactly one repo → proceed with it.
+- Found in multiple repos, or none → ask the user which repo to scan (or whether the branch name is slightly different).
+
+#### B2 — Confirm the base branch
+
+Never assume the base branch. Ask:
+
+> "Which branch should I compare against — the one this feature was branched from (e.g. `main`, `develop`, or a release branch)?"
+
+#### B3 — Run the scan
+
+```bash
+cd ~/Desktop/Nexudus\ Products/<repo>
+git fetch origin
+git log origin/<base>..<branch> --oneline --stat   # commit messages + file map
+git diff origin/<base>...<branch> --stat           # cumulative file list
+git diff origin/<base>...<branch> -- <specific files>   # targeted diffs only
+```
+
+Treat the **cumulative diff as one change set**, not per-commit. Use the commit messages (subjects = intent, bodies = detail) as the substitute for a PR description. Follow the pr-source-guide reading order: description/commits first, changed-file list second, targeted diffs third. Stop reading deeper once you can name every user-visible change.
+
+Extract:
+
+- Feature name (for file naming and headings)
+- Every user-visible change, grouped by product surface
+- Exact UI labels resolved from i18n strings (per the guide)
+- Navigation paths built from route structure + `reference/nexudus-product-context.md`
+- The operator-facing "why" — if commit messages don't carry it, ask the user for a one-liner
+- Feature flags, rollout notes, and linked tickets/URLs found in commit messages
+
+If the branch isn't in the local checkout, follow the guide's "Unmerged or un-pulled PRs and branches" section; if that fails too, fall back to Mode A and ask the user to paste the material.
+
+#### B4 — Present findings, then check for gaps
+
+Summarise what the scan found (feature name, surfaces affected, key user-visible changes) and confirm it matches the user's expectation before proceeding to Step 3.
+
+**Insufficient-context fallback:** assess whether the code provides enough context for the requested content type(s). Typical gaps: a backend-only change with no UI labels, vague commit messages, a missing operator-facing benefit, or no way to tell what the feature looks like. If there are gaps, do NOT guess. Instead:
+
+1. Tell the user exactly what's missing — e.g. "The diff shows a new API endpoint but no UI changes, so I can't write demo steps for a Product Update."
+2. Offer them the option to supply more information from another source: Basecamp text or links, Figma design descriptions, screenshots, or their own description.
+3. If they supply it, merge that material with the code findings and continue. If they decline, generate with `[TBC]` markers on the gaps and flag them in the Step 5 summary.
+
+---
+
+### Pull CLI context (run as soon as source material is received, in either mode)
 
 ```bash
 nexudus resources list --agent    # Real resource names for demo steps
@@ -67,14 +142,16 @@ For each selected content type, ask all required questions in a **single message
 
 Tell the user they can leave any field blank and it will be marked `[TBC]`.
 
+**In branch-scan mode (Mode B), skip any question whose answer was already extracted from the code** — e.g. Basecamp/Figma links found in commit messages, or UI details and navigation paths resolved from the diff. Only ask for fields the code cannot provide: dates, hosts, session length, marketing names, quiz topics, course structure choices. Note in the message which fields were auto-filled so the user can correct them if needed.
+
 ---
 
 ### Product Update — questions to ask
 
 ```
 **Product Update**
-- Basecamp link(s):
-- Figma link(s):
+- Basecamp link(s): (Mode B: use any found in commit messages; otherwise ask)
+- Figma link(s): (Mode B: use any found in commit messages; otherwise ask)
 - Session recording URL (if available):
 - Format: long version, high-level summary, or both?
 - Any unresolved items or unknowns I should flag as [TBC]?
