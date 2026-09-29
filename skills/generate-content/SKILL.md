@@ -107,7 +107,7 @@ Extract:
 - Every user-visible change, grouped by product surface
 - Exact UI labels resolved from i18n strings (per the guide)
 - Navigation paths built from route structure + `reference/nexudus-product-context.md`
-- The operator-facing "why" — if commit messages don't carry it, ask the user for a one-liner
+- The operator-facing "why" — what problem the update solves (see "The core question" in Step 4). If commit messages don't state it and it can't be safely inferred from the change, leave the `[PROMPT — ...]` placeholder in the draft rather than guessing
 - Feature flags, rollout notes, and linked tickets/URLs found in commit messages
 
 If the branch isn't in the local checkout, follow the guide's "Unmerged or un-pulled PRs and branches" section; if that fails too, fall back to Mode A and ask the user to paste the material.
@@ -233,6 +233,16 @@ Write each generator script to `/tmp/gen_[output_type].py`, run it with `python3
 
 Follow the per-type generation instructions below.
 
+### The core question: "What does this update solve?"
+
+Product Update, Webinar Brief, Video Script, and Training Script outputs must each answer **what problem or pain point the update is trying to solve** — not just what it does. Determine the answer in this order:
+
+1. **From the source material** — PR/commit messages, Basecamp text, or pasted briefs often state the intent ("fixes the issue where...", "operators were struggling to..."). Use it.
+2. **Inferred from the code change** — a fix or constraint removal implies the pain (e.g. a new validation on an import screen implies bad data was getting through). Only use this when the inference is safe and obvious; frame it as the benefit, not speculation.
+3. **Neither works** — leave a visible prompt in the drafted content at the spot where the answer belongs: `[PROMPT — What does this update solve? Add one or two sentences on the problem this addresses for the reader.]` Do NOT invent an answer. List every such prompt in the Step 5 summary and offer to fold the user's answer into the file once they provide it.
+
+Worked example (inference): a branch adds a duplicate-email warning to the customer creation form → "Previously, operators could accidentally create two accounts for the same customer. Duplicate Accounts Warning now flags a matching email address before the record is saved."
+
 ---
 
 ## Product Update — generation
@@ -245,6 +255,8 @@ Follow the per-type generation instructions below.
 
 **Opening paragraph pattern:**
 > "[Feature name] gives [space operators / members] [key benefit]. [What it is and where to find it.] [Pricing or how to get started if applicable.]"
+
+The opening paragraph must answer **what problem this update solves** (see "The core question" above). If the source material doesn't carry the answer and it can't be safely inferred from the change, insert the `[PROMPT — ...]` placeholder after the opening paragraph instead of guessing.
 
 **Document structure:**
 ```
@@ -306,7 +318,7 @@ Notes:
 **Main content table standard sections:**
 - Introductions
 - Housekeeping (Duration, Q&A, Recording)
-- Benefits / Feature Overview
+- Benefits / Feature Overview — must open by answering **what problem this update solves** (see "The core question" above); if unknown, insert the `[PROMPT — ...]` placeholder in this row
 - [Feature-specific sections derived from input — use Explain: and Demonstrate: pattern]
 - Live Q&A
 - Wrap up
@@ -342,7 +354,7 @@ Use real resource and member names from CLI data in all Demonstrate: steps.
 Hello and welcome to Nexudus Unlocked!
 
 [White slide with intro text]
-[2–3 sentence overview]
+[2–3 sentence overview — must include what problem this update solves (see "The core question" above); if unknown, insert the [PROMPT — ...] placeholder here]
 
 ---
 
@@ -405,7 +417,7 @@ Set-up required before each session:
 Script:
 
 Intro
-[Full spoken intro — 3–5 sentences]
+[Full spoken intro — 3–5 sentences, including what problem this update solves (see "The core question" above); if unknown, insert the [PROMPT — ...] placeholder here]
 
 Section 1: Learn ([X] minutes)
 [Explanations, audience questions, trainer notes]
@@ -510,5 +522,6 @@ Apply to all output types:
 After all files are saved, report:
 1. File path(s)
 2. Any fields still marked `[TBC]` that need filling
-3. Any demo steps using placeholder data (prompt to confirm real environment details)
-4. Any media placeholders (`[GIF — ...]`, `[SCREENSHOT — ...]`) that need assets captured
+3. Any `[PROMPT — What does this update solve? ...]` placeholders left in the content — ask the user for the answer and offer to fold it into the file(s)
+4. Any demo steps using placeholder data (prompt to confirm real environment details)
+5. Any media placeholders (`[GIF — ...]`, `[SCREENSHOT — ...]`) that need assets captured
