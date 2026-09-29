@@ -76,6 +76,18 @@ Never paraphrase a button or heading — pull the exact label. Both frontend rep
 - If a label can't be resolved (key missing, dynamic label), mark it `[TBC]` rather than guessing
 - For navigation paths, combine the route/section structure with the top-level section names from `reference/nexudus-product-context.md` (CRM, Operations, Inventory, Settings, Reports)
 
+## Customer-facing terminology (ecommerce repo)
+
+When scanning `nexudus-coworking-ecommerce`, consult `.github/docs/glossary.md` in that repo for customer-facing terminology. It maps internal API entity names to the terms customers actually see (e.g. never "Tariff" — use **plan**; **location** not business; **activity log** not audit trail).
+
+Precedence when writing content:
+
+1. **Exact UI labels** from i18n strings — always win for anything shown on screen (buttons, headings, field labels, navigation paths)
+2. **`reference/nexudus-product-context.md`** — wins for training language, audience framing, and how concepts are explained in prose
+3. **The glossary** — wins over raw API/code names for customer-facing terms in prose (use *customer* rather than *coworker*, *plan* rather than *tariff*)
+
+So: if the code says `Tariff` but the UI says **Plan**, write **Plan**. If the glossary and the product context disagree on a training concept, follow the product context and flag the discrepancy for the user.
+
 ## Caveats
 
 ### Feature flags

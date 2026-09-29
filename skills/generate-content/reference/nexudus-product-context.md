@@ -17,8 +17,10 @@ Nexudus is the leading management platform for flexible workspace operators (cow
 | Space Owner | Full access, billing, subscription settings |
 | Full Unrestricted Admin | Full access to Admin Panel, no billing |
 | Admin | Standard admin access |
-| Member / Customer | End-user, accesses Members Portal and apps |
+| Customer (member) | End-user with an active contract; accesses Members Portal and apps |
 | Contact | Non-paying person associated with a member company |
+
+**Terminology:** use **customer** (not *coworker*) for end-users in all content. A *member* is a customer with an active contract; a *contact* is one without. Never use *tariff* — use **plan**.
 
 ## Core Product Areas
 

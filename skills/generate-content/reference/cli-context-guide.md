@@ -49,11 +49,11 @@ nexudus resourcetypes list --agent
 
 **Use in content:** When explaining resource categories.
 
-### Get member/coworker data (for activities)
+### Get customer data (for activities)
 ```bash
-nexudus coworkers list --agent
+nexudus coworkers list --agent   # command name is legacy; returns customers
 ```
-**Returns:** List of coworkers/members with profiles.
+**Returns:** List of customers/members with profiles. In content, refer to them as **customers** (or *members* where an active contract is implied).
 
 **Use in content:** Activity exercises can reference real member names.
 - ✅ Activity: "Create a booking for Jamie Smith for next Tuesday 10am in Basement Conference."
