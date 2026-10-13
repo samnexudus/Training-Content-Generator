@@ -1,3 +1,8 @@
+---
+name: generate-content
+description: Generate first-draft Nexudus training content from a feature brief or by scanning a source branch — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons. Use when the user asks to "generate content", "create content for [feature]", writes a "product update", "webinar brief", "video script", "training script", or "academy lesson", or asks to "scan branch [name]" / "check what changed on [branch]" and create training content from the changes.
+---
+
 # generate-content
 
 Generate training and product content for Nexudus features. Supports five output types — one feature input can produce multiple outputs in a single session.
