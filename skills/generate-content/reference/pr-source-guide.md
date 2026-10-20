@@ -17,10 +17,34 @@ The same reading order and label-resolution rules below apply whether the source
 | Repo (in `~/Desktop/Nexudus Products/`) | Product surface | What you'll find |
 |---|---|---|
 | `nexudus-coworking-admin-v3.2` | **Admin Panel** | React app. UI components, i18n strings, routes |
+| `nexudus-coworking-admin-v5` | **Admin Panel v5** | Admin v5 implementation. UI components, i18n strings, routes |
+| `nexudus-coworking-admin-v5.0-docs` | **Admin Panel v5 Help Centre documentation** | User-facing v5 documentation source, including feature guides and walkthroughs |
 | `nexudus-coworking-ecommerce` | **Members Portal** | React/Next app. UI components, i18n strings, `api/` route handlers |
 | `Nexudus.Coworking` | **Backend / API** | SQL migrations and server code. No UI labels here |
 
 If a feature spans repos (e.g. new Admin Panel screen backed by a new API), the user may give you more than one PR. Generate one section per product surface.
+
+## Admin v5 Help Centre documentation — required alongside the source code
+
+For **every training-content request about an Admin v5 feature**, review both:
+
+1. The relevant implementation in `nexudus-coworking-admin-v5`.
+2. The relevant Help Centre article(s) in `nexudus-coworking-admin-v5.0-docs`.
+
+Neither source replaces the other. The implementation verifies current UI labels and behavior; the Help Centre explains the operator's purpose, practical workflow, benefits, and documented caveats. Use both to give the content accurate context, not just a code-oriented feature description.
+
+### Required lookup procedure
+
+1. Search the docs repository for the feature name, alternate UI labels, and the user task. Check `content/` for the canonical English article and read the full relevant article, including warnings, notes, and related links. Do not rely on a filename, search result, or snippet alone.
+2. Search for closely related articles when they describe prerequisites, permissions, settings, or downstream behavior needed to explain the feature accurately.
+3. Check the live documentation entry point when web access is available:
+   - Start with `https://flow-docs.nexudus.site/` for Admin v5 documentation.
+   - If it requires sign-in, do not bypass authentication. Use the docs repository as documentation-source evidence and state that the live page could not be verified.
+   - **https://learn.nexudus.com** may redirect to the public Learn documentation. Search its index for relevant guidance, but do not assume it contains the v5 article.
+4. Keep source status precise: a page in the docs repository—even one marked `published`—does not by itself prove the live Help Centre serves that page at a particular URL.
+5. Compare the documentation with the implementation. If they differ, do not silently combine claims: note the discrepancy, prefer code only for verifying the current implemented UI behavior, and flag documentation status or intended behavior for confirmation.
+6. Record the documentation article title and verified URL in internal Notes when available. If only a repository path is available, identify it as a docs-source path, not as a verified public link.
+7. If no relevant article exists or the docs source cannot be accessed, record that limitation in internal Notes and tell the user. If this prevents a reliable explanation of the feature's purpose or benefit, ask for the article, screenshots, or product context; otherwise draft with `[TBC]` markers for unresolved claims.
 
 ## Reading order: description → changed files → diff
 

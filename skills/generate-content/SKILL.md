@@ -1,6 +1,6 @@
 ---
 name: generate-content
-description: Generate first-draft Nexudus training content from a feature brief or by scanning a source branch — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons. Use when the user asks to "generate content", "create content for [feature]", writes a "product update", "webinar brief", "video script", "training script", or "academy lesson", or asks to "scan branch [name]" / "check what changed on [branch]" and create training content from the changes.
+description: Generate first-draft Nexudus training content from a feature brief or by scanning a source branch — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons. For Admin v5 features, check both the implementation and v5 Help Centre documentation. Use when the user asks to "generate content", "create content for [feature]", writes a "product update", "webinar brief", "video script", "training script", or "academy lesson", or asks to "scan branch [name]" / "check what changed on [branch]" and create training content from the changes.
 ---
 
 # generate-content
@@ -58,6 +58,18 @@ If it's unclear which mode the user wants, ask:
 
 > "Would you like to paste the source material (Basecamp text, a product brief, release notes, or your own description), or should I scan a branch in one of the Nexudus repos to work out what changed?"
 
+### Required source check for Admin v5 features
+
+Whenever the feature is in **Admin v5**, consult both the Admin v5 implementation and the matching Nexudus Help Centre documentation before drafting, regardless of whether the user supplied a brief or asked for a source scan. Do not treat source code alone as sufficient product context.
+
+**Load `reference/pr-source-guide.md` and follow its “Admin v5 Help Centre documentation” procedure.** In particular:
+
+- Search the Admin v5 documentation source repository (`nexudus-coworking-admin-v5.0-docs`) for the feature and related user tasks. Read the relevant article, not just its title or search snippet.
+- Check the customer-facing documentation entry point as well, when accessible. `https://flow-docs.nexudus.site/` may require Nexudus sign-in; `https://learn.nexudus.com` may redirect to the public Learn site. Do not bypass authentication.
+- Distinguish clearly between a page found in the documentation source repository and a page verified on the live Help Centre. A `published` status in source is not proof that a particular public URL is accessible or current.
+- Compare documentation with the implementation. Use the code to verify current UI labels and behavior, and use the docs for purpose, operator context, benefits, workflows, and caveats. If they conflict, describe the discrepancy and flag it rather than silently blending the claims.
+- If documentation cannot be accessed or no relevant article exists, say so in the findings and in the generated document's internal Notes. Do not imply the Help Centre confirms code-derived content. If this leaves a material content gap, ask the user for the relevant documentation, screenshots, or product context; otherwise proceed and mark unresolved details `[TBC]`.
+
 ---
 
 ### Mode A — Paste source material
@@ -74,6 +86,8 @@ If the user wants to pull notes directly from a FigJam board, ask them to paste 
 
 **Load `reference/pr-source-guide.md` before doing anything else in this mode.** It is the single source of truth for how to read a change set: which repo maps to which product surface, the reading order (description → changed files → diff), how to resolve exact UI labels from i18n strings, and the caveats for feature flags, backend-only changes, and multi-feature branches.
 
+For Admin v5, the required Help Centre documentation check above is part of this source review even if the user names a branch or supplies other material.
+
 #### B1 — Locate the branch
 
 Repos live in `~/Desktop/Nexudus Products/`:
@@ -81,6 +95,8 @@ Repos live in `~/Desktop/Nexudus Products/`:
 | Repo | Product surface |
 |---|---|
 | `nexudus-coworking-admin-v3.2` | Admin Panel |
+| `nexudus-coworking-admin-v5` | Admin Panel v5 source code |
+| `nexudus-coworking-admin-v5.0-docs` | Admin Panel v5 Help Centre documentation (content source, not the implementation branch) |
 | `nexudus-coworking-ecommerce` | Members Portal |
 | `Nexudus.Coworking` | Backend / API |
 
@@ -372,7 +388,7 @@ Hello and welcome to Nexudus Unlocked!
 ---
 
 [Outro]
-That's about it for this Nexudus Unlocked! As always, if you have any questions, please reach out to our Support team or check out our Knowledge Base, help.nexudus.com.
+That's about it for this Nexudus Unlocked! As always, if you have any questions, please reach out to our Support team or check out our Knowledge Base, learn.nexudus.com.
 
 ---
 

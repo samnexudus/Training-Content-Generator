@@ -72,7 +72,7 @@ Plain language. No marketing language. No "exciting" or "powerful".]
 [Outro]
 
 That's about it for this Nexudus Unlocked! As always, if you have any questions, please reach out
-to our Support team or check out our Knowledge Base, help.nexudus.com.
+to our Support team or check out our Knowledge Base, **learn.nexudus.com**.
 
 ---
 
@@ -88,7 +88,7 @@ In this episode of Nexudus Unlocked, we'll show you:
 
 [Optional: closing line — "Whether your members are... the [Feature] makes it easy to..."]
 
-🔗 Learn more in our Knowledge Base: https://help.nexudus.com
+🔗 Learn more in our Knowledge Base: **https://learn.nexudus.com**
 ```
 
 ---
@@ -138,7 +138,7 @@ Use these consistently throughout:
 ## Standard close line (use verbatim)
 
 > That's about it for this Nexudus Unlocked! As always, if you have any questions, please reach
-> out to our Support team or check out our Knowledge Base, help.nexudus.com.
+> out to our Support team or check out our Knowledge Base, **learn.nexudus.com**.
 
 Do not paraphrase or vary this line.
 
