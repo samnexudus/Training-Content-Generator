@@ -12,7 +12,7 @@ When a new feature is released, either paste in the Figma design notes, Basecamp
 | Webinar Brief | Training team and webinar hosts (internal) | `.html` |
 | Video Script | Nexudus Unlocked YouTube series (external) | `.html` |
 | Training Script | Internal micro-learning sessions | `.html` |
-| Academy Lesson | Nexudus Academy LMS / Articulate Rise (internal or customer) | `.html` |
+| Academy Lesson | Nexudus Academy LMS / Articulate Rise (internal or customer) | `.html` + `course-spec.json` |
 
 ## How to use
 
@@ -27,6 +27,15 @@ The plugin will:
 4. Ask any remaining type-specific questions
 5. Check `examples/` for a real example to use as a style reference
 6. Generate and save `.html` files to `~/Desktop/Nexudus Content/[Feature Name]/`
+
+### Two versions of academy courses
+
+The Academy Lesson type feeds **two course versions** from one content pass:
+
+1. **Hand-built (Articulate Rise)** — the `[Course Name] - Academy Lesson.html` is the working document you update manually in Rise, as before. Nothing about this workflow changes.
+2. **AI-maintained (Tessera)** — the same lesson is also written as `[Course Name] - course-spec.json`, a machine-readable blueprint. Say **"build course from [file]"** and the plugin builds or refreshes the matching course in the Tessera workspace at `~/Desktop/Nexudus Products/elearning-courses/` (SCORM 2004 export). The written text goes in verbatim; only layout and component choices are made by the AI.
+
+When a feature changes, regenerate the Academy Lesson and rebuild the Tessera course; the Rise course keeps its manual update path.
 
 ### Two ways to provide source material
 
@@ -90,7 +99,8 @@ nexudus-content-generator/
 │           ├── nexudus-product-context.md   # Product terminology and nav paths
 │           ├── real-examples-summary.md     # Patterns extracted from real product updates
 │           ├── format-quick-check.md        # Pre-save validation checklist
-│           └── cli-context-guide.md         # CLI commands for live data enrichment
+│           ├── cli-context-guide.md         # CLI commands for live data enrichment
+│           └── course-spec-format.md        # Schema for course-spec.json (Tessera handoff)
 ├── agents/
 │   └── content-writer.md                    # Content writer agent persona
 └── README.md
@@ -154,4 +164,4 @@ Before generating your first piece of content, make sure these are in place. The
 
 ## Version
 
-v0.4.0 — Supports five content types (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson) with two input modes: pasted source material or branch scanning
+v0.5.0 — Academy Lessons now also emit a machine-readable `course-spec.json`; new "build course" mode builds/refreshes the AI-maintained Tessera course in `~/Desktop/Nexudus Products/elearning-courses/` (SCORM 2004). v0.4.0 — Five content types (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson) with two input modes: pasted source material or branch scanning
