@@ -7,6 +7,8 @@ description: Generate first-draft Nexudus training content from a feature brief 
 
 Generate training and product content for Nexudus features. Supports five output types — one feature input can produce multiple outputs in a single session.
 
+**Preferences (read first):** load `preferences.md` in this skill folder before Step 1. It holds user-maintained overrides for language & tone, design tokens, course defaults, and screenshot conventions. Any field set there overrides the defaults in this file and the reference templates; blank fields fall back to the built-in defaults. When a Step 3 question's answer is already fixed in `preferences.md`, skip asking it and note that it came from preferences.
+
 ## Content types
 
 | Type | Audience | Output |
@@ -535,18 +537,23 @@ LESSON: Summary  ← always the final lesson, always titled "Summary"
 
 Triggered by: "build course", "build the course from [file]", "create the Tessera course for [course name]".
 
-This builds (or updates) the AI-maintained eLearning course in the Tessera workspace at `~/Desktop/Nexudus Products/elearning-courses/`. The written content comes from the course spec — do NOT re-draft or paraphrase it; only layout and component choices are yours to make.
+This builds (or updates) the AI-maintained eLearning course in the `elearning-courses` Tessera workspace (repo `samnexudus/elearning-courses`; on this machine it lives at `~/Desktop/Nexudus Products/elearning-courses/`). The written content comes from the course spec — do NOT re-draft or paraphrase it; only layout and component choices are yours to make.
 
 **Preconditions:**
 1. A `[Course Name] - course-spec.json` exists (in `~/Desktop/Nexudus Content/[Feature Name]/`, or wherever the user points). If not, offer to generate the Academy Lesson first.
-2. The `elearning-courses` workspace exists with `pnpm install` run. If missing, tell the user and stop — don't scaffold silently.
+2. The `elearning-courses` workspace is cloned locally with `pnpm install` run. If missing, tell the user and stop — don't scaffold silently.
 
 **Steps:**
 1. Read the spec. Load `reference/course-spec-format.md` if you need to recall the schema.
-2. Open the **workspace folder** (`~/Desktop/Nexudus Products/elearning-courses/`) so its `AGENTS.md` is in scope, and follow its "Building Tessera courses from a course spec" section — that section owns the block-to-component mapping and is kept in sync with the installed `tessera-learn` version.
-3. New course → `pnpm tessera new <kebab-case-course-name>` (one course = one folder, no prefixes), then populate it from the spec. Existing course → edit the existing pages in place; keep the course's `id` in `course.config.js`.
-4. Surface every `[TBC]` / `[PROMPT — …]` marker and media placeholder found in the spec in your summary — never silently drop them.
-5. Run `pnpm check <course>`, fix every error, then `pnpm export <course>` (SCORM 2004 by default). Report the `.zip` path.
+2. From the workspace root, run the generator:
+   ```
+   pnpm build-from-spec <path/to/course-spec.json>
+   ```
+   The generator scaffolds new courses (including `course.config.js`, `layout.svelte`, `styles/custom.css`) or updates existing ones. It is **preserve-tweaks**: a per-page hash in `.build-state.json` means only pages whose spec content changed are rewritten, so manual edits to Svelte files survive rebuilds. Use `--force` to regenerate every generated page, or `--reset` to wipe the `pages/` tree first (adopting a hand-written course, or after a big spec restructure — manual tweaks inside `pages/` are lost).
+3. When real screenshot assets land in `courses/<name>/assets/`, update the `image` block `src` values in the spec (filename only) and re-run the generator — only the affected pages update.
+4. Keep the canonical copy of the spec in the workspace's `specs/` folder (`<course-name>-course-spec.json`) so teammates can rebuild from the repo alone; keep the `~/Desktop/Nexudus Content/` copy in lockstep with it.
+5. Surface every `[TBC]` / `[PROMPT — …]` marker and media placeholder found in the spec in your summary — never silently drop them. Placeholder screenshots render as styled "Screenshot pending" boxes.
+6. Run `pnpm check <course>`, fix every error, then `pnpm export <course>` (SCORM 2004 by default). Report the `.zip` path.
 
 **Do not** touch the hand-built Rise course or the Academy Lesson HTML when building — this mode only writes into the Tessera workspace.
 
