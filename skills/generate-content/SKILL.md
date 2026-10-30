@@ -537,7 +537,7 @@ LESSON: Summary  ← always the final lesson, always titled "Summary"
 
 Triggered by: "build course", "build the course from [file]", "create the Tessera course for [course name]".
 
-This builds (or updates) the AI-maintained eLearning course in the `elearning-courses` Tessera workspace (repo `samnexudus/elearning-courses`; on this machine it lives at `~/Desktop/Nexudus Products/elearning-courses/`). The written content comes from the course spec — do NOT re-draft or paraphrase it; only layout and component choices are yours to make.
+This builds (or updates) the AI-maintained eLearning course in the `elearning-courses` Tessera workspace (repo `oliviasf1/elearning-courses`, moving to `samnexudus/elearning-courses` once the master copy is transferred; on this machine it lives at `~/Desktop/Nexudus Products/elearning-courses/`). The written content comes from the course spec — do NOT re-draft or paraphrase it; only layout and component choices are yours to make.
 
 **Preconditions:**
 1. A `[Course Name] - course-spec.json` exists (in `~/Desktop/Nexudus Content/[Feature Name]/`, or wherever the user points). If not, offer to generate the Academy Lesson first.
