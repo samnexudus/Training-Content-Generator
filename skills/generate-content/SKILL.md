@@ -1,6 +1,6 @@
 ---
 name: generate-content
-description: Generate first-draft Nexudus training content from a feature brief or by scanning a source branch — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons (with a machine-readable course-spec.json for AI-built courses). Build Tessera eLearning courses from a course spec. For Admin v5 features, check both the implementation and v5 Help Centre documentation. Use when the user asks to "generate content", "create content for [feature]", writes a "product update", "webinar brief", "video script", "training script", or "academy lesson", asks to "scan branch [name]" / "check what changed on [branch]" and create training content from the changes, or asks to "build course" / "build the course from [file]".
+description: Generate first-draft Nexudus training content from a feature brief or by scanning a source branch — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons (with a machine-readable course-spec.json for AI-built courses). Build SCORM eLearning courses from a course spec. For Admin v5 features, check both the implementation and v5 Help Centre documentation. Use when the user asks to "generate content", "create content for [feature]", writes a "product update", "webinar brief", "video script", "training script", or "academy lesson", asks to "scan branch [name]" / "check what changed on [branch]" and create training content from the changes, or asks to "build course" / "build the course from [file]".
 ---
 
 # generate-content
@@ -19,7 +19,7 @@ Generate training and product content for Nexudus features. Supports five output
 | Training Script | Internal micro-learning sessions | `.html` |
 | Academy Lesson | Nexudus Academy LMS / Articulate Rise (internal or customer) | `.html` + `course-spec.json` |
 
-The Academy Lesson produces two files: the human-readable HTML (source for the manually-maintained Rise course) and a machine-readable `course-spec.json` (blueprint for the AI-maintained Tessera course). See "Academy Lesson — generation" and "Build course mode".
+The Academy Lesson produces two files: the human-readable HTML (source for the manually-maintained Rise course) and a machine-readable `course-spec.json` (blueprint for the AI-maintained SCORM course). See "Academy Lesson — generation" and "Build course mode".
 
 ## Trigger phrases
 
@@ -30,7 +30,7 @@ The Academy Lesson produces two files: the human-readable HTML (source for the m
 - "training script", "write a training script"
 - "academy lesson", "create an academy lesson"
 - Branch-scan mode: "scan branch [name]", "check what changed on [branch]", "generate a [content type] from branch [name]", "look at branch [name] and create [content type]"
-- Course build mode: "build course", "build the course from [Academy Lesson file]", "create the Tessera course for [course name]"
+- Course build mode: "build course", "build the course from [Academy Lesson file]", "create the SCORM course for [course name]"
 
 ---
 
@@ -523,21 +523,22 @@ LESSON: Summary  ← always the final lesson, always titled "Summary"
 
 **Knowledge check rules:** test application, not recall. 5–12 questions depending on lesson length. Types: multiple choice, true/false, fill-in-blank, matching. Always include corrective feedback for wrong answers. Mark correct answer with ✓.
 
-**Also write the machine-readable course spec.** Alongside the HTML, write `[Course Name] - course-spec.json` to the same output folder. **Load `reference/course-spec-format.md` before writing it** — it defines the schema (block types, quiz question contracts, field names). The spec is the handoff document for building the AI-maintained Tessera course (see "Build course mode" below); the HTML stays the source for the manually-maintained Rise course. Rules:
+**Also write the machine-readable course spec.** Alongside the HTML, write `[Course Name] - course-spec.json` to the same output folder. **Load `reference/course-spec-format.md` before writing it** — it defines the schema (block types, quiz question contracts, field names). The spec is the handoff document for building the AI-maintained SCORM course (see "Build course mode" below); the HTML stays the source for the manually-maintained Rise course. Rules:
 
 - Valid JSON; text fields carry the same wording as the HTML, including `[TBC]` markers and `[PROMPT — …]` placeholders
 - One spec per course; keep it in lockstep with the HTML — if you edit one, edit the other
 - Media placeholders become `image`/`video` blocks whose `src` holds the placeholder description until a real asset is captured
+- Bold button and UI element names with inline `<strong>` HTML (e.g. `"Click <strong>Save</strong>."`) — never `**markdown**` markers, which render as literal asterisks on the course page
 
 **File naming:** `[Course Name] - Academy Lesson.html` + `[Course Name] - course-spec.json`
 
 ---
 
-## Build course mode — Tessera courses from a course spec
+## Build course mode — SCORM courses from a course spec
 
-Triggered by: "build course", "build the course from [file]", "create the Tessera course for [course name]".
+Triggered by: "build course", "build the course from [file]", "create the SCORM course for [course name]".
 
-This builds (or updates) the AI-maintained eLearning course in the `elearning-courses` Tessera workspace (repo `oliviasf1/elearning-courses`, moving to `samnexudus/elearning-courses` once the master copy is transferred; on this machine it lives at `~/Desktop/Nexudus Products/elearning-courses/`). The written content comes from the course spec — do NOT re-draft or paraphrase it; only layout and component choices are yours to make.
+This builds (or updates) the AI-maintained eLearning course in the `elearning-courses` SCORM generator workspace (this repo; on this machine it lives at `~/Desktop/Nexudus Products/elearning-courses/`). The courses are built on the open-source [Tessera](https://tesseralearn.dev) framework — Tessera is only the underlying engine. The written content comes from the course spec — do NOT re-draft or paraphrase it; only layout and component choices are yours to make.
 
 **Preconditions:**
 1. A `[Course Name] - course-spec.json` exists (in `~/Desktop/Nexudus Content/[Feature Name]/`, or wherever the user points). If not, offer to generate the Academy Lesson first.
@@ -555,7 +556,7 @@ This builds (or updates) the AI-maintained eLearning course in the `elearning-co
 5. Surface every `[TBC]` / `[PROMPT — …]` marker and media placeholder found in the spec in your summary — never silently drop them. Placeholder screenshots render as styled "Screenshot pending" boxes.
 6. Run `pnpm check <course>`, fix every error, then `pnpm export <course>` (SCORM 2004 by default). Report the `.zip` path.
 
-**Do not** touch the hand-built Rise course or the Academy Lesson HTML when building — this mode only writes into the Tessera workspace.
+**Do not** touch the hand-built Rise course or the Academy Lesson HTML when building — this mode only writes into the `elearning-courses` workspace.
 
 ---
 
@@ -578,7 +579,7 @@ Apply to all output types:
 ## STEP 5 — Present summary
 
 After all files are saved, report:
-1. File path(s) — for Academy Lessons, list both the `.html` and the `course-spec.json`, and remind the user they can say "build course from [file]" to create or refresh the Tessera course
+1. File path(s) — for Academy Lessons, list both the `.html` and the `course-spec.json`, and remind the user they can say "build course from [file]" to create or refresh the SCORM course
 2. Any fields still marked `[TBC]` that need filling
 3. Any `[PROMPT — What does this update solve? ...]` placeholders left in the content — ask the user for the answer and offer to fold it into the file(s)
 4. Any demo steps using placeholder data (prompt to confirm real environment details)

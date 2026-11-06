@@ -1,6 +1,6 @@
 # Content Preferences — SCORM eLearning courses
 
-User-maintained overrides for the Training Content Generator. **These preferences apply
+User-maintained overrides for the generate-content skill. **These preferences apply
 only to SCORM eLearning courses** (the Academy Lesson spec + the AI-maintained Tessera
 course). They do NOT apply to the other output types (Product Update, Webinar Brief,
 Video Script, Training Script) — those keep the built-in defaults in `SKILL.md` and the
@@ -12,11 +12,15 @@ workspace `AGENTS.md`. Blank or missing fields fall back to the built-in default
 
 ## Language & tone
 
-- Tone: informative, friendly, plain English — not technical
-- Audience: [e.g. space operators, no prior Nexudus training assumed]
-- Formality: professional but approachable; contractions fine
+- Audience: **admins** (the people who manage spaces) — the primary audience
+  for all eLearning courses; no prior Nexudus training assumed
+- Tone: **casual yet informative — not formal**. Conversational and plain
+  English, like a helpful colleague explaining something, not a manual
+- Formality: casual; contractions fine
 - Voice: second person ("you"), present tense
-- Terminology: [e.g. always "space operator", never "admin"; always "Members Portal", never "member site"]
+- Terminology: use **"admin"** (never "space operator") for the person
+  managing a space; when referring to a team admin specifically, say
+  **"team admin"**, not just "admin"
 - Avoid: [e.g. marketing superlatives ("seamless", "powerful"), jargon, US spellings]
 - Sentence length: short sentences; one idea per sentence
 

@@ -74,15 +74,15 @@ From `[IMAGE]` blocks. While the asset hasn't been captured yet, `src` holds the
   "type": "process",
   "intro": "Follow these steps to create a ticketed event.",
   "steps": [
-    "Navigate to **Events > All events**.",
-    "Click **Create event**.",
-    "Tick **Sell tickets** and save."
+    "Navigate to <strong>Events &gt; All events</strong>.",
+    "Click <strong>Create event</strong>.",
+    "Tick <strong>Sell tickets</strong> and save."
   ],
   "summary": "Your event now appears in the member booking flow."
 }
 ```
 
-From `[INTERACTIVE — INTERACTIVE:PROCESS]`. Numbered workflow steps; bold UI labels survive as markdown-free plain text or inline HTML.
+From `[INTERACTIVE — INTERACTIVE:PROCESS]`. Numbered workflow steps. Bold button and UI names with **inline `<strong>` HTML** (e.g. `"Click <strong>Save</strong>."`) — never with `**markdown**` markers, which the builder does not interpret and which render as literal asterisks on the page.
 
 ### `accordion`
 
