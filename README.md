@@ -33,7 +33,7 @@ The plugin will:
 The Academy Lesson type feeds **two course versions** from one content pass:
 
 1. **Hand-built (Articulate Rise)** — the `[Course Name] - Academy Lesson.html` is the working document you update manually in Rise, as before. Nothing about this workflow changes.
-2. **AI-maintained (Tessera)** — the same lesson is also written as `[Course Name] - course-spec.json`, a machine-readable blueprint. Say **"build course from [file]"** and the plugin builds or refreshes the matching course in the Tessera workspace at `~/Desktop/Nexudus Products/elearning-courses/` (SCORM 2004 export). The written text goes in verbatim; only layout and component choices are made by the AI.
+2. **AI-maintained (SCORM)** — the same lesson is also written as `[Course Name] - course-spec.json`, a machine-readable blueprint. Say **"build course from [file]"** and the plugin builds or refreshes the matching course in the SCORM generator workspace at `elearning-courses/` in this repo (SCORM 2004 export). The written text goes in verbatim; only layout and component choices are made by the AI.
 
 When a feature changes, regenerate the Academy Lesson and rebuild the Tessera course; the Rise course keeps its manual update path.
 
@@ -103,6 +103,13 @@ nexudus-content-generator/
 │           └── course-spec-format.md        # Schema for course-spec.json (Tessera handoff)
 ├── agents/
 │   └── content-writer.md                    # Content writer agent persona
+├── elearning-courses/                       # SCORM course library (Tessera-based)
+│   ├── specs/                               # Canonical course specs (one JSON per course)
+│   ├── courses/                             # Generated courses + SCORM 2004 exports
+│   ├── shared/                              # Shared design system ($shared)
+│   ├── scripts/build-from-spec.mjs          # Spec → course generator
+│   ├── AGENTS.md                            # Authoring guide for the SCORM workspace
+│   └── README.md                            # SCORM workspace docs
 └── README.md
 ```
 
@@ -156,6 +163,7 @@ Before generating your first piece of content, make sure these are in place. The
 **Recommended**
 
 - **Nexudus CLI** — pulls real plan, resource, and member names from your staging account so generated examples use realistic data instead of placeholders. Without it, demo steps will fall back to generic names.
+- **Node.js 20+ and [pnpm](https://pnpm.io)** — only if you'll build SCORM courses ("build course" mode). Run `pnpm install` once inside `elearning-courses/`. See `elearning-courses/README.md` for details.
 
 **Notes for the team**
 
@@ -164,4 +172,4 @@ Before generating your first piece of content, make sure these are in place. The
 
 ## Version
 
-v0.5.0 — Academy Lessons now also emit a machine-readable `course-spec.json`; new "build course" mode builds/refreshes the AI-maintained Tessera course in `~/Desktop/Nexudus Products/elearning-courses/` (SCORM 2004). v0.4.0 — Five content types (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson) with two input modes: pasted source material or branch scanning
+v0.6.0 — The SCORM course library (`elearning-courses/`) is now part of this repo; "build course" mode works against `elearning-courses/` at the repo root instead of a separately-cloned workspace. v0.5.0 — Academy Lessons now also emit a machine-readable `course-spec.json`; new "build course" mode builds/refreshes the AI-maintained SCORM course (SCORM 2004). v0.4.0 — Five content types (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson) with two input modes: pasted source material or branch scanning

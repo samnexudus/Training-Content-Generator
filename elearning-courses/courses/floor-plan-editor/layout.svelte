@@ -1,0 +1,107 @@
+<script>
+  import '$shared/tokens.css';
+  import { useNavigation } from 'tessera-learn';
+
+  let { page } = $props();
+  const nav = useNavigation();
+</script>
+
+<div class="course">
+  <header>
+    <h1>Floor Plan Editor</h1>
+  </header>
+
+  <main>
+    {@render page()}
+  </main>
+
+  <footer>
+    <button
+      class="nav-btn"
+      disabled={!nav.canGoPrev}
+      onclick={() => nav.prev()}
+    >
+      ← Previous
+    </button>
+    <button
+      class="nav-btn nav-btn--primary"
+      disabled={!nav.canGoNext}
+      onclick={() => nav.next()}
+    >
+      Next →
+    </button>
+  </footer>
+</div>
+
+<style>
+  .course {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--tessera-spacing-md);
+    padding: var(--tessera-spacing-md) var(--tessera-spacing-xl);
+    border-bottom: 1px solid var(--tessera-border);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 1.125rem;
+  }
+
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: var(--tessera-content-max-width);
+    margin: 0 auto;
+    padding: var(--tessera-spacing-xl);
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--tessera-spacing-md);
+    padding: var(--tessera-spacing-md) var(--tessera-spacing-xl);
+    border-top: 1px solid var(--tessera-border);
+  }
+
+  .nav-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--tessera-border);
+    border-radius: 6px;
+    background: var(--tessera-bg);
+    color: var(--tessera-text);
+    cursor: pointer;
+    transition:
+      background var(--tessera-transition-fast),
+      border-color var(--tessera-transition-fast);
+  }
+
+  .nav-btn:hover:not(:disabled) {
+    background: var(--tessera-bg-secondary);
+  }
+
+  .nav-btn--primary {
+    border-color: transparent;
+    /* Brand orange #FE4D00 + white text is only 3.35:1 (below WCAG 4.5:1),
+     * so the default button colour is a darkened brand orange (#C73E00 =
+     * 5.1:1). Override --tessera-primary-button in styles/custom.css when a
+     * different brand colour keeps white text legible. */
+    background: var(--tessera-primary-button, #c73e00);
+    color: #fff;
+  }
+
+  .nav-btn--primary:hover:not(:disabled) {
+    background: var(--tessera-primary-button-hover, #a83300);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>

@@ -1,0 +1,19 @@
+{
+  "pages": {
+    "pages/01-getting-started/01-overview": "73e142b288782c5f",
+    "pages/02-floor-plans-at-a-glance/01-where-floor-plans-live": "7c74bfaa8f44c138",
+    "pages/02-floor-plans-at-a-glance/02-copy-and-delete-floor-plans": "3ae038f2b7670b96",
+    "pages/02-floor-plans-at-a-glance/03-knowledge-check": "4593d8b89032e9bc",
+    "pages/03-drawing-in-the-editor/01-two-modes": "3624408855bfeed7",
+    "pages/03-drawing-in-the-editor/02-the-drawing-tools": "c2d5bb57982f0f9b",
+    "pages/03-drawing-in-the-editor/03-scale-the-plan-before-you-draw": "2a2566430324a375",
+    "pages/03-drawing-in-the-editor/04-reference-images-and-saving": "af248b41670d3dab",
+    "pages/03-drawing-in-the-editor/05-knowledge-check": "8db256460aa9ceea",
+    "pages/04-importing-a-dwg-drawing/01-the-import-workflow": "e9bd749def98880b",
+    "pages/04-importing-a-dwg-drawing/02-layer-roles": "f60876d696ad610f",
+    "pages/04-importing-a-dwg-drawing/03-scale-tolerances-and-review": "e0c7f14a2ed827b0",
+    "pages/04-importing-a-dwg-drawing/04-after-the-import": "5fabec2d985fd6c7",
+    "pages/04-importing-a-dwg-drawing/05-knowledge-check": "c6cfb39c07a73145",
+    "pages/05-summary/01-recap": "ec2c6620d4c3bb5e"
+  }
+}

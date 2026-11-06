@@ -1,0 +1,23 @@
+{
+  "name": "elearning-courses",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.17.0",
+  "scripts": {
+    "new": "tessera new",
+    "dev": "tessera dev",
+    "export": "tessera export",
+    "validate": "tessera validate",
+    "a11y": "tessera a11y",
+    "check": "tessera check",
+    "build-from-spec": "node scripts/build-from-spec.mjs"
+  },
+  "dependencies": {
+    "tessera-learn": "0.12.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
+    "playwright": "^1.60.0",
+    "svelte": "^5.57.0"
+  }
+}

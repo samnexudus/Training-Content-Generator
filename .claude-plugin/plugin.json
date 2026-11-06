@@ -1,7 +1,7 @@
 {
   "name": "nexudus-content-generator",
-  "version": "0.5.0",
-  "description": "Generate first-draft Nexudus training content from a feature brief — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons (with course-spec.json for AI-built courses). Build Tessera eLearning courses from a course spec. Uses a local example library as the primary style reference and pulls live data from the Nexudus CLI for realistic demo steps.",
+  "version": "0.6.0",
+  "description": "Generate first-draft Nexudus training content from a feature brief — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons (with course-spec.json for AI-built courses). Build SCORM eLearning courses from a course spec. Uses a local example library as the primary style reference and pulls live data from the Nexudus CLI for realistic demo steps.",
   "author": "Nexudus Academy",
   "requirements": {
     "cli": ["nexudus"],

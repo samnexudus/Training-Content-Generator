@@ -1,0 +1,555 @@
+{
+  "format": "nexudus-course-spec",
+  "formatVersion": 1,
+  "courseName": "Floor Plan Editor",
+  "scormVersion": "SCORM 2004 4th Edition",
+  "version": "v2.01",
+  "cover": {
+    "intro": "A floor plan is one level of your location, drawn to scale in the Floor Plan Editor. It holds the units — the offices, dedicated desks, hot desks and rooms you assign to customers or make bookable — and gives them a place on a drawing, so your team and your members can see what is free and where it is.",
+    "objectives": [
+      "Find and manage floor plans in Nexudus Flow",
+      "Draw and edit a floor plan layout in the editor",
+      "Link drawn areas to floor plan units and check availability"
+    ],
+    "disclaimer": "The content and images in this course are accurate as of publication but may change over time. Images are for illustration only and may differ from what appears on your system."
+  },
+  "lessons": [
+    {
+      "title": "Floor plans at a glance",
+      "blocks": [
+        {
+          "type": "text",
+          "html": "<p>In Nexudus Flow, every sellable place in your building lives on a floor plan. A <strong>floor plan</strong> is one level of one location. On it you draw walls, doors and windows, and you place the <strong>units</strong> — offices, dedicated desks, hot desks and rooms — that you assign to customers or make bookable.</p>"
+        },
+        {
+          "type": "text",
+          "html": "<p>This lesson covers where floor plans live, what the list page shows, and the two actions that save time when you have several similar floors.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Where floor plans live"
+        },
+        {
+          "type": "text",
+          "html": "<p>Floor plans sit under <strong>Settings & administration › Administration › Floor plans</strong>. You need the <em>Floor plans</em> module switched on, and a role that includes the floor plan permissions. If you cannot see the page, ask an administrator to check both.</p>"
+        },
+        {
+          "type": "image",
+          "src": "[SCREENSHOT — show the Floor plans list under Settings & administration › Administration, cards view with previews]",
+          "alt": "Floor plans list in Nexudus Flow showing plan cards with previews"
+        },
+        {
+          "type": "text",
+          "html": "<p>The list shows your plans as cards with a preview by default; switch to the table view to see the values. The record holds the plan's name, its background image and its booking limit. A plan drawn in the editor carries an <strong>Open Floor Plan Editor</strong> action on its row — that is your way into the drawing tools covered in the next lesson.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Copy and delete floor plans"
+        },
+        {
+          "type": "accordion",
+          "items": [
+            {
+              "title": "Copy floor plan",
+              "html": "<p>Floors often repeat. <strong>Copy floor plan</strong> makes an exact copy of the plans you select and asks what to bring with it: furniture, floor transitions, doors and windows, and desks and offices. Untick the desks and offices when you want the shell of a floor and a fresh set of units.</p>"
+            },
+            {
+              "title": "Delete a floor plan",
+              "html": "<p>Deleting a floor plan also deletes <strong>every floor plan unit on it</strong> and its editor layout. Contracts and bookings that point at those units lose them. This cannot be undone — review what sits on the plan before you delete it.</p>"
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "important",
+          "html": "<p>Deleting a floor plan permanently removes every unit on it. Check which contracts and bookings point at those units first.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Knowledge check"
+        },
+        {
+          "type": "quiz",
+          "graded": true,
+          "maxAttempts": 3,
+          "questions": [
+            {
+              "id": "l1_q1",
+              "kind": "multiple-choice",
+              "prompt": "Where do you find floor plans in Nexudus Flow?",
+              "options": [
+                "Settings & administration › Administration › Floor plans",
+                "Reports › Dashboards",
+                "Inbox › Conversations"
+              ],
+              "correctIndex": 0,
+              "correctFeedback": "Correct — floor plans live under Settings & administration › Administration.",
+              "incorrectFeedback": "Not quite — look under Settings & administration › Administration."
+            },
+            {
+              "id": "l1_q2",
+              "kind": "true-false",
+              "prompt": "You can copy a floor plan without copying its desks and offices.",
+              "answer": true,
+              "correctFeedback": "Correct — the copy dialog lets you untick desks and offices to get just the shell of the floor.",
+              "incorrectFeedback": "Think again — the copy dialog asks what to bring, and you can untick desks and offices."
+            },
+            {
+              "id": "l1_q3",
+              "kind": "fill-in-blank",
+              "prompt": "The action on a plan's row that opens the drawing tools is called ______.",
+              "answers": [
+                "Open Floor Plan Editor"
+              ],
+              "caseSensitive": false,
+              "correctFeedback": "Correct — Open Floor Plan Editor takes you straight into the editor.",
+              "incorrectFeedback": "Look at the row actions on a plan that has been drawn in the editor."
+            },
+            {
+              "id": "l1_q4",
+              "kind": "multiple-choice",
+              "prompt": "What happens to the units on a floor plan when you delete it?",
+              "options": [
+                "They are moved to a new plan automatically",
+                "They are deleted too, and cannot be recovered",
+                "They are kept as orphans until you reassign them"
+              ],
+              "correctIndex": 1,
+              "correctFeedback": "Correct — every unit on the plan is deleted, and contracts and bookings pointing at them lose them.",
+              "incorrectFeedback": "Deleting a plan deletes every unit on it — there is no recovery."
+            },
+            {
+              "id": "l1_q5",
+              "kind": "true-false",
+              "prompt": "The floor plan record holds the plan's geometry (walls and rooms).",
+              "answer": false,
+              "correctFeedback": "Correct — the record holds the name, background image and booking limit; the geometry belongs to the editor.",
+              "incorrectFeedback": "The record holds name, background image and booking limit. The geometry lives in the editor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Drawing in the editor",
+      "blocks": [
+        {
+          "type": "text",
+          "html": "<p>The editor is where a floor plan is drawn: walls, partitions, doors, windows, furnishings, and the areas that become your units. It opens from a floor plan's <strong>Open Floor Plan Editor</strong> action, or from a unit's <strong>View on floor plan</strong>.</p>"
+        },
+        {
+          "type": "text",
+          "html": "<p>The header carries the plan's name and location, the toolbar, and <strong>Save</strong> — which stays unavailable until something has changed. Nothing you do is stored until you save.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Two modes"
+        },
+        {
+          "type": "text",
+          "html": "<p>The mode buttons sit at the top of the editor:</p>"
+        },
+        {
+          "type": "accordion",
+          "items": [
+            {
+              "title": "View availability",
+              "html": "<p>For reading the plan: what is free, what is taken, and by whom, on a date you choose. Occupancy is worked out from the contracts and proposals on each unit — so you can answer “what is free in March” by changing the date rather than reading contracts. The sidebar lists the units with an occupancy swatch each: <strong>green</strong> is available, <strong>red</strong> is occupied, <strong>blue</strong> is reserved later, <strong>yellow</strong> is proposed.</p>"
+            },
+            {
+              "title": "Edit layout",
+              "html": "<p>For changing the drawing. It adds the drawing tools and the grid, and puts the floor area on every room. A plan opened from a unit arrives in View availability with that unit selected.</p>"
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "src": "[SCREENSHOT — show the editor in Edit layout mode with the toolbar (Select, Draw wall, Draw partition, Add door, Add window, Add furnishing, Rescale plan, Fit floor plan) and the Save button in the header]",
+          "alt": "Floor Plan Editor in Edit layout mode showing the drawing toolbar"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The drawing tools"
+        },
+        {
+          "type": "text",
+          "html": "<p>Edit layout gives you <strong>Select</strong>, <strong>Draw wall</strong>, <strong>Draw partition</strong>, <strong>Add door</strong>, <strong>Add window</strong>, <strong>Add furnishing</strong>, <strong>Rescale plan</strong> and <strong>Fit floor plan</strong>, with <strong>Undo</strong> and <strong>Redo</strong> beside them. <strong>Import DWG</strong> and <strong>Reference images</strong> sit at the end of the toolbar.</p>"
+        },
+        {
+          "type": "text",
+          "html": "<p>Selecting something opens its inspector on the right. An area shows its <strong>Area name</strong>, <strong>Color</strong>, <strong>Transparency</strong>, <strong>Area size</strong> and approximate dimensions. New areas arrive named <em>New office</em> and new assets <em>New desk</em>, white and mostly transparent, so you can see the drawing underneath while you place them.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Keyboard shortcuts"
+        },
+        {
+          "type": "text",
+          "html": "<p>The <strong>Keyboard shortcuts</strong> panel lists them, and they are worth learning if you draw more than one floor:</p>"
+        },
+        {
+          "type": "accordion",
+          "items": [
+            {
+              "title": "Tools",
+              "html": "<p><strong>1…6</strong> switch between walls, partitions, doors, windows, furnishings and stairs. <strong>Esc</strong> or <strong>Ctrl + Space</strong> returns you to the select tool.</p>"
+            },
+            {
+              "title": "Grid and zoom",
+              "html": "<p><strong>Ctrl + S</strong> toggles grid snapping, <strong>Ctrl + G</strong> toggles the grid itself, and <strong>Ctrl + F</strong> zooms to fit.</p>"
+            },
+            {
+              "title": "Editing",
+              "html": "<p><strong>Ctrl + Z</strong> undoes, <strong>Ctrl + Shift + Z</strong> redoes, and <strong>Delete</strong> removes the selection.</p>"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Scale the plan before you draw"
+        },
+        {
+          "type": "process",
+          "intro": "The drawing needs to know what a metre is before areas mean anything. Do this before drawing in earnest.",
+          "steps": [
+            "Choose <strong>Rescale plan</strong> in the toolbar.",
+            "Draw a line along something you know the length of — a doorway or a wall.",
+            "Enter that length in the <strong>Rescale floor plan</strong> dialog.",
+            "Click <strong>Apply scale</strong>."
+          ],
+          "summary": "The whole plan is rescaled. Unit areas feed occupancy reporting and the target price per square metre, so a plan scaled afterwards moves numbers you may already have reported."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Link areas to units"
+        },
+        {
+          "type": "text",
+          "html": "<p>Drawing an area or an asset that is not yet linked to a floor plan unit opens <strong>Assign floor plan unit</strong>, with two tabs: <strong>Create new</strong> — give it a name and Nexudus creates the unit and links it — and <strong>Assign existing</strong> — pick one of the units that has no shape yet.</p>"
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "html": "<p>This is the join between the drawing and everything commercial. A shape with no unit is decoration; a unit with a shape can be assigned, booked, reported on and shown to members.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Reference images and saving"
+        },
+        {
+          "type": "text",
+          "html": "<p>The <strong>Reference images</strong> panel holds two slots: a <strong>Tracing image</strong> (an editing aid — an architect's drawing to trace over) and a <strong>Background image</strong> (shown with the published floor plan). Each slot has an opacity slider and a scale in millimetres per image pixel. Image changes are stored when you save the floor plan, like everything else.</p>"
+        },
+        {
+          "type": "text",
+          "html": "<p>If the plan changed while you were working, saving raises <strong>Floor plan changed</strong>, naming who changed it and when. You can <strong>Overwrite changes</strong>, <strong>Keep editing</strong>, or <strong>Reload latest and discard my changes</strong>. There is no merge — whichever you pick, one version of the layout survives, so agree who is drawing before two people open the same floor.</p>"
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "html": "<p>Nothing is saved until you choose Save. Leaving the editor with unsaved changes loses your work.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Knowledge check"
+        },
+        {
+          "type": "quiz",
+          "graded": true,
+          "maxAttempts": 3,
+          "questions": [
+            {
+              "id": "l2_q1",
+              "kind": "multiple-choice",
+              "prompt": "You want to know what is free on a floor in March. What do you do?",
+              "options": [
+                "Change the date in the View availability header picker",
+                "Open each contract and check the dates",
+                "Ask members to email their bookings"
+              ],
+              "correctIndex": 0,
+              "correctFeedback": "Correct — occupancy is worked out for the date in the header picker, from contracts and proposals.",
+              "incorrectFeedback": "Use the date picker in View availability — occupancy is calculated for the chosen date."
+            },
+            {
+              "id": "l2_q2",
+              "kind": "fill-in-blank",
+              "prompt": "In the availability legend, the colour for a unit that is occupied is ______.",
+              "answers": [
+                "red",
+                "Red"
+              ],
+              "caseSensitive": false,
+              "correctFeedback": "Correct — red means occupied.",
+              "incorrectFeedback": "Green is available, blue is reserved later, yellow is proposed — which one is occupied?"
+            },
+            {
+              "id": "l2_q3",
+              "kind": "true-false",
+              "prompt": "You should rescale the plan after you have finished drawing, once all areas are placed.",
+              "answer": false,
+              "correctFeedback": "Correct — rescale before drawing in earnest, because unit areas feed occupancy reporting and target price per square metre.",
+              "incorrectFeedback": "Do it early: a plan scaled afterwards moves numbers you may already have reported."
+            },
+            {
+              "id": "l2_q4",
+              "kind": "multiple-choice",
+              "prompt": "A colleague saved the floor plan while you were editing. When you save, what happens?",
+              "options": [
+                "Your versions are merged automatically",
+                "Nexudus names who changed it and offers overwrite, keep editing, or reload latest",
+                "Your save is silently rejected"
+              ],
+              "correctIndex": 1,
+              "correctFeedback": "Correct — there is no merge; you choose which single version survives.",
+              "incorrectFeedback": "There is no merge — you get a choice of overwrite, keep editing, or reload latest and discard your changes."
+            },
+            {
+              "id": "l2_q5",
+              "kind": "matching",
+              "prompt": "Match each keyboard shortcut to what it does.",
+              "pairs": [
+                {
+                  "left": "Ctrl + G",
+                  "right": "Toggles the grid on or off"
+                },
+                {
+                  "left": "Ctrl + F",
+                  "right": "Zooms to fit"
+                },
+                {
+                  "left": "Esc",
+                  "right": "Returns to the select tool"
+                },
+                {
+                  "left": "Delete",
+                  "right": "Deletes the selection"
+                }
+              ],
+              "correctFeedback": "Well matched.",
+              "incorrectFeedback": "Check the Keyboard shortcuts panel in the editor."
+            },
+            {
+              "id": "l2_q6",
+              "kind": "multiple-choice",
+              "prompt": "You draw a new area. What must happen before it can be assigned to a customer or booked?",
+              "options": [
+                "It must be linked to a floor plan unit",
+                "It must be coloured green",
+                "It must be saved twice"
+              ],
+              "correctIndex": 0,
+              "correctFeedback": "Correct — a shape with no unit is decoration; a unit with a shape can be assigned, booked and reported on.",
+              "incorrectFeedback": "Use Assign floor plan unit to link the shape to a unit — then it can be assigned or booked."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Importing a DWG drawing",
+      "blocks": [
+        {
+          "type": "text",
+          "html": "<p>If you have the architect's drawing, you do not have to redraw the floor. The DWG importer reads a CAD drawing, asks which layers are walls, doors and rooms, and converts it into a floor plan you can keep editing. It lives in the editor, behind <strong>Import DWG</strong>.</p>"
+        },
+        {
+          "type": "callout",
+          "tone": "important",
+          "html": "<p>Import into an empty floor plan. If the layout already has content, the importer refuses with “This floor plan already has content”. Create a new floor plan for the drawing.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The import workflow"
+        },
+        {
+          "type": "process",
+          "intro": "Follow these steps to convert a CAD drawing into a floor plan.",
+          "steps": [
+            "Open the editor on an <strong>empty floor plan</strong>, then click <strong>Import DWG</strong>.",
+            "Drop the file on <strong>Select a DWG file</strong> or choose it. Maximum 25 MB. If an import already exists for this plan you can <strong>Continue existing import</strong> or <strong>Upload new DWG</strong>.",
+            "Pick the space — a drawing holds one or more spaces; choose the one with the floor in it.",
+            "Map the content: give every layer you want a role, and set the scale.",
+            "Convert and review — Nexudus builds the floor plan and shows you what it made before anything is applied.",
+            "<strong>Apply</strong>, then <strong>Save</strong> in the editor."
+          ],
+          "summary": "Applying returns you to Edit layout with the converted plan in place. It is not stored until you choose Save."
+        },
+        {
+          "type": "image",
+          "src": "[SCREENSHOT — show the Import DWG layer mapping screen: layers on the left, the drawing in the middle, role settings on the right]",
+          "alt": "Import DWG layer mapping screen with layers, drawing preview and role settings"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Layer roles"
+        },
+        {
+          "type": "text",
+          "html": "<p>Every layer gets a <strong>role</strong> that decides what Nexudus builds from it:</p>"
+        },
+        {
+          "type": "accordion",
+          "items": [
+            {
+              "title": "Structure",
+              "html": "<p><strong>Wall centerline</strong> / <strong>Wall boundaries</strong> become walls; <strong>Partition centerline</strong> becomes partitions; <strong>Room boundary</strong> becomes areas, which become your units.</p>"
+            },
+            {
+              "title": "Openings and circulation",
+              "html": "<p><strong>Door</strong> and <strong>Window</strong> become openings in the walls; <strong>Stairs or elevator</strong> becomes vertical circulation; <strong>Furnishing or desk block</strong> becomes furnishings.</p>"
+            },
+            {
+              "title": "Tracing and ignore",
+              "html": "<p><strong>Tracing only</strong> keeps the layer as an image to trace over; <strong>Ignore</strong> builds nothing from it.</p>"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "html": "<p>Roles are guessed from the layer names, which is usually right for a drawing with conventional naming: a layer called <em>A-DOOR</em> arrives as <strong>Door</strong>, <em>A-WALL</em> as <strong>Wall boundaries</strong>, and anything that looks like annotation, dimensions, hatching or a grid as <strong>Tracing only</strong>. Check the guesses — they are a starting point, not a reading of the drawing.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Scale, tolerances and review"
+        },
+        {
+          "type": "text",
+          "html": "<p>Tell Nexudus the <strong>Drawing units</strong> — millimetres, centimetres, metres, inches or feet. If the drawing is not to a known unit, measure a distance you know with the measuring tool in the preview and enter its <strong>Actual distance</strong>.</p>"
+        },
+        {
+          "type": "text",
+          "html": "<p><strong>Advanced settings</strong> holds the tolerances the conversion works to: endpoint snap, curve chord, minimum segment, wall width and Z tolerance, all in millimetres. Leave them alone unless the result tells you otherwise — a drawing that converts with gaps at corners usually wants a larger endpoint snap.</p>"
+        },
+        {
+          "type": "text",
+          "html": "<p>Before anything is applied you get a <strong>Conversion summary</strong> counting the walls, partitions, areas, doors, windows and source objects, and a <strong>Diagnostics</strong> list where the converter reports what it could not do cleanly — notes in grey, warnings in amber.</p>"
+        },
+        {
+          "type": "callout",
+          "tone": "tip",
+          "html": "<p>Read the area count first. Areas are what become your units, so a conversion with walls but no areas usually means no layer was given the Room boundary role — go back to Map content rather than applying.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "After the import"
+        },
+        {
+          "type": "text",
+          "html": "<p>The converted plan is drawn in the editor, and <strong>Show source drawing</strong> puts the original over it so you can compare. The drawing can be kept as the tracing image, which is worth doing: it stays underneath while you tidy the conversion, and you can remove it later from <strong>Reference images</strong>.</p>"
+        },
+        {
+          "type": "text",
+          "html": "<p>Then do the work the importer cannot: name the areas and turn them into units. A converted area is a shape until it is linked to a floor plan unit. Nothing is saved until you choose <strong>Save</strong> in the editor — leaving the page after applying a conversion loses it.</p>"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Knowledge check"
+        },
+        {
+          "type": "quiz",
+          "graded": true,
+          "maxAttempts": 3,
+          "questions": [
+            {
+              "id": "l3_q1",
+              "kind": "true-false",
+              "prompt": "You can import a DWG into a floor plan that already has content.",
+              "answer": false,
+              "correctFeedback": "Correct — the importer refuses if the layout already has content. Use a new, empty floor plan.",
+              "incorrectFeedback": "The importer refuses with “This floor plan already has content” — create a new plan for the drawing."
+            },
+            {
+              "id": "l3_q2",
+              "kind": "multiple-choice",
+              "prompt": "Which layer role produces the areas that become your units?",
+              "options": [
+                "Room boundary",
+                "Wall boundaries",
+                "Tracing only"
+              ],
+              "correctIndex": 0,
+              "correctFeedback": "Correct — Room boundary layers become areas, which become your units.",
+              "incorrectFeedback": "Walls come from wall layers; areas come from the Room boundary role."
+            },
+            {
+              "id": "l3_q3",
+              "kind": "fill-in-blank",
+              "prompt": "The maximum file size for a DWG upload is ______ MB.",
+              "answers": [
+                "25",
+                "25 MB"
+              ],
+              "caseSensitive": false,
+              "correctFeedback": "Correct — 25 MB.",
+              "incorrectFeedback": "Check the upload step in the import workflow."
+            },
+            {
+              "id": "l3_q4",
+              "kind": "multiple-choice",
+              "prompt": "The conversion applies successfully but the plan has walls and no areas. What is the most likely cause?",
+              "options": [
+                "No layer was given the Room boundary role",
+                "The file was too large",
+                "The grid snapping was turned on"
+              ],
+              "correctIndex": 0,
+              "correctFeedback": "Correct — areas come from Room boundary layers, so go back to Map content.",
+              "incorrectFeedback": "Areas are built from Room boundary layers — check the layer roles in Map content."
+            },
+            {
+              "id": "l3_q5",
+              "kind": "true-false",
+              "prompt": "A converted area can be assigned to a customer as soon as it appears in the editor.",
+              "answer": false,
+              "correctFeedback": "Correct — a converted area is a shape until it is linked to a floor plan unit.",
+              "incorrectFeedback": "Name the areas and link each to a floor plan unit first — a shape with no unit is decoration."
+            },
+            {
+              "id": "l3_q6",
+              "kind": "multiple-choice",
+              "prompt": "You applied a conversion but forgot to save. What happens when you leave the page?",
+              "options": [
+                "The conversion is saved automatically",
+                "The conversion is lost",
+                "The conversion is queued for later"
+              ],
+              "correctIndex": 1,
+              "correctFeedback": "Correct — nothing is stored until you choose Save in the editor.",
+              "incorrectFeedback": "Nothing is saved until you choose Save — leaving the page after applying loses the conversion."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "blocks": [
+        {
+          "type": "quote",
+          "html": "<p>You should now be able to:</p><ul><li>Find and manage floor plans in Nexudus Flow</li><li>Draw and edit a floor plan layout in the editor</li><li>Link drawn areas to floor plan units and check availability</li></ul>"
+        },
+        {
+          "type": "video",
+          "src": "https://airtable.com/embed/appdInia1qyUjAidC/paghPEvcF3ZihmLQt/form?prefill_Course+Name=Floor+Plan+Editor",
+          "title": "Course feedback form"
+        }
+      ]
+    }
+  ]
+}

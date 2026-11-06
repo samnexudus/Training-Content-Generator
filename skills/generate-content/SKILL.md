@@ -538,11 +538,11 @@ LESSON: Summary  ← always the final lesson, always titled "Summary"
 
 Triggered by: "build course", "build the course from [file]", "create the SCORM course for [course name]".
 
-This builds (or updates) the AI-maintained eLearning course in the `elearning-courses` SCORM generator workspace (this repo; on this machine it lives at `~/Desktop/Nexudus Products/elearning-courses/`). The courses are built on the open-source [Tessera](https://tesseralearn.dev) framework — Tessera is only the underlying engine. The written content comes from the course spec — do NOT re-draft or paraphrase it; only layout and component choices are yours to make.
+This builds (or updates) the AI-maintained eLearning course in the `elearning-courses/` SCORM generator workspace at the root of this repo. The courses are built on the open-source [Tessera](https://tesseralearn.dev) framework — Tessera is only the underlying engine. The written content comes from the course spec — do NOT re-draft or paraphrase it; only layout and component choices are yours to make.
 
 **Preconditions:**
 1. A `[Course Name] - course-spec.json` exists (in `~/Desktop/Nexudus Content/[Feature Name]/`, or wherever the user points). If not, offer to generate the Academy Lesson first.
-2. The `elearning-courses` workspace is cloned locally with `pnpm install` run. If missing, tell the user and stop — don't scaffold silently.
+2. The `elearning-courses/` folder exists in the repo with `pnpm install` run inside it. If missing, tell the user and stop — don't scaffold silently.
 
 **Steps:**
 1. Read the spec. Load `reference/course-spec-format.md` if you need to recall the schema.

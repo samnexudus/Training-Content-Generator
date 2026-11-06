@@ -1,0 +1,17 @@
+{
+  "pages": {
+    "pages/01-getting-started/01-overview": "7f3ec06516185d0b",
+    "pages/02-creating-a-document-template/01-the-document-templates-list": "63016724bb50c7f8",
+    "pages/02-creating-a-document-template/02-the-three-kinds-of-template": "a34913f1c9bca225",
+    "pages/02-creating-a-document-template/03-what-a-document-is-about": "d7f3a24bd6854cde",
+    "pages/02-creating-a-document-template/04-creating-a-template": "eac6d88186a3f3a8",
+    "pages/02-creating-a-document-template/05-knowledge-check": "2a922c6763c1558b",
+    "pages/03-writing-in-the-document-designer/01-the-layout": "01753c3c31e5e65f",
+    "pages/03-writing-in-the-document-designer/02-inserting-fields": "8484c4a61caaae39",
+    "pages/03-writing-in-the-document-designer/03-conditions-and-repeats": "361056e043439f9a",
+    "pages/03-writing-in-the-document-designer/04-checking-previewing-and-saving": "86714f4495b3a5e7",
+    "pages/03-writing-in-the-document-designer/05-generating-a-document": "1b08f2793c97adc3",
+    "pages/03-writing-in-the-document-designer/06-knowledge-check": "9af4d2c97356de20",
+    "pages/04-summary/01-recap": "f8cbbd7e570818fa"
+  }
+}

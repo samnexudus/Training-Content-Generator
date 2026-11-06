@@ -1,0 +1,28 @@
+/* Course-level CSS overrides.
+ * Imported automatically by Tessera. Use this file for tweaks on top of the
+ * default theme. Brand values come from
+ * Training Content Generator/skills/generate-content/preferences.md.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  /* Body font: Poppins (Regular–Semi-Bold); fallback stack if the LMS
+   * blocks external font requests. Display font: Parkinsans for headings,
+   * subheadings, accents, and buttons. */
+  --tessera-font-family: 'Poppins', Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.nav-btn {
+  font-family: 'Parkinsans', Arial, sans-serif;
+}
+
+/* WCAG AA: white text on #FE4D00 is 3.35:1; use darkened brand orange for buttons. */
+:root {
+  --tessera-primary-button: #C73E00;
+}

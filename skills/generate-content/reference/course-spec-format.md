@@ -190,4 +190,4 @@ If a knowledge check is a hands-on activity prompt rather than a scored quiz, em
 
 ## What the builder does with this file
 
-See the "Building Tessera courses from a course spec" section in `AGENTS.md` of the `elearning-courses` workspace. In short: one spec → one course folder under `courses/<kebab-case courseName>/`, blocks mapped to Svelte pages and Tessera components, then `pnpm check` + `pnpm export`.
+See the "Building SCORM courses from a course spec" section in `elearning-courses/AGENTS.md` at the repo root. In short: one spec → one course folder under `elearning-courses/courses/<kebab-case courseName>/`, blocks mapped to Svelte pages and Tessera components, then `pnpm check` + `pnpm export`.
