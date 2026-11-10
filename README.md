@@ -4,11 +4,12 @@ A Claude Code plugin for the Nexudus Academy training team. Generates first-draf
 
 ## What it does
 
-When a new feature is released, either paste in the Figma design notes, Basecamp to-do, or any feature description — or name a branch and let it scan the code to work out what changed — and the tool generates a polished first draft of any combination of five content types, each saved as an `.html` file:
+When a new feature is released, either paste in the Figma design notes, Basecamp to-do, or any feature description — or name a branch and let it scan the code to work out what changed — and the tool generates a polished first draft of any combination of six content types, each saved as an `.html` file:
 
 | Type | Audience | Output |
 |---|---|---|
 | Product Update | Space operators and customers (external) | `.html` |
+| One-Pager | Sales, onboarding, and space operators (both) | Single-page A4 landscape `.html` |
 | Webinar Brief | Training team and webinar hosts (internal) | `.html` |
 | Video Script | Nexudus Unlocked YouTube series (external) | `.html` |
 | Training Script | Internal micro-learning sessions | `.html` |
@@ -21,7 +22,7 @@ Say:
 > "Generate content" or "Generate outputs"
 
 The plugin will:
-1. Ask which output types you want (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson)
+1. Ask which output types you want (Product Update, One-Pager, Webinar Brief, Video Script, Training Script, Academy Lesson)
 2. Gather the source material — either you paste it, or it scans a branch in one of the Nexudus repos
 3. Pull real plan, resource, and member names from your Nexudus staging account via the CLI
 4. Ask any remaining type-specific questions
@@ -46,6 +47,22 @@ When a feature changes, regenerate the Academy Lesson and rebuild the Tessera co
 > "Scan branch `feature/event-tickets` in the Admin Panel and create a product update"
 
 It finds the branch across the repos in `~/Desktop/Nexudus Products/` (asking if it's ambiguous), confirms which base branch to compare against, diffs the two, extracts every user-visible change with exact UI labels from the i18n strings, and summarises its findings before generating. If the code doesn't carry enough context (e.g. a backend-only change with no UI), it tells you exactly what's missing and offers to take the rest from Basecamp, Figma descriptions, screenshots, or your own words — anything left unresolved is marked `[TBC]`.
+
+### One-Pager vs Product Update
+
+These two types are easy to confuse — they answer different questions:
+
+| | One-Pager | Product Update |
+|---|---|---|
+| Answers | "What is this and why should I care?" | "How do I use it?" |
+| Steps | None — no numbered workflows | Numbered steps with bolded paths |
+| Length | Exactly one A4 landscape page | As long as the feature needs |
+| Visuals | Icons only (inline SVG) | GIFs / screenshots per section |
+| Use case | Sales conversations, onboarding decks, quick operator briefings | Release announcements, training reference |
+
+Both follow the Nexudus brand skills (`nexudus-branding` for visual identity, `nexudus-brand-voice` for tone). The one-pager carries the official Nexudus orange logo top-right and is print-ready — open the `.html` in a browser and print to PDF (A4 landscape) for distribution. The skill bundles the official logo at `skills/generate-content/reference/assets/nexudus-logo-orange.png`.
+
+One-Pager headers distinguish **"What's new in Admin Panel v5"** (new features) from **"What's changed in Admin Panel v5"** (updated, redesigned, or improved features). Capability sections are selected to match the feature scope rather than a fixed count, and the layout must keep all copy inside its panels and page boundaries.
 
 ## Example library
 
@@ -92,6 +109,7 @@ nexudus-content-generator/
 │       └── reference/
 │           ├── docx-generation.md           # HTML boilerplate and helpers (filename is legacy from a prior .docx output format)
 │           ├── product-update-format.md     # Format rules and opening paragraph structure
+│           ├── one-pager-format.md          # Single-page A4 landscape layout, cards, icons, print CSS
 │           ├── webinar-brief-template.md    # Webinar brief structure
 │           ├── video-script-template.md     # Video script structure
 │           ├── training-script-template.md  # Training script structure
@@ -172,4 +190,4 @@ Before generating your first piece of content, make sure these are in place. The
 
 ## Version
 
-v0.6.0 — The SCORM course library (`elearning-courses/`) is now part of this repo; "build course" mode works against `elearning-courses/` at the repo root instead of a separately-cloned workspace. v0.5.0 — Academy Lessons now also emit a machine-readable `course-spec.json`; new "build course" mode builds/refreshes the AI-maintained SCORM course (SCORM 2004). v0.4.0 — Five content types (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson) with two input modes: pasted source material or branch scanning
+v0.6.0 — New **One-Pager** output type: single A4 landscape page highlighting features, capabilities, and selling points (no step-by-step instructions), following the `nexudus-branding` and `nexudus-brand-voice` skills with the Nexudus logo top-right; the SCORM course library (`elearning-courses/`) is now part of this repo, and "build course" mode works against it at the repo root. v0.5.0 — Academy Lessons now also emit a machine-readable `course-spec.json`; new "build course" mode builds/refreshes the AI-maintained SCORM course (SCORM 2004). v0.4.0 — Five content types (Product Update, Webinar Brief, Video Script, Training Script, Academy Lesson) with two input modes: pasted source material or branch scanning

@@ -1,11 +1,11 @@
 ---
 name: generate-content
-description: Generate first-draft Nexudus training content from a feature brief or by scanning a source branch — Product Updates, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons (with a machine-readable course-spec.json for AI-built courses). Build SCORM eLearning courses from a course spec. For Admin v5 features, check both the implementation and v5 Help Centre documentation. Use when the user asks to "generate content", "create content for [feature]", writes a "product update", "webinar brief", "video script", "training script", or "academy lesson", asks to "scan branch [name]" / "check what changed on [branch]" and create training content from the changes, or asks to "build course" / "build the course from [file]".
+description: Generate first-draft Nexudus training content from a feature brief or by scanning a source branch — Product Updates, Feature One-Pagers, Webinar Briefs, Video Scripts, Training Scripts, and Academy Lessons (with a machine-readable course-spec.json for AI-built courses). Build SCORM eLearning courses from a course spec. For Admin v5 features, check both the implementation and v5 Help Centre documentation. Use when the user asks to "generate content", "create content for [feature]", writes a "product update", "one-pager", "feature one-pager", "webinar brief", "video script", "training script", or "academy lesson", asks to "scan branch [name]" / "check what changed on [branch]" and create training content from the changes, or asks to "build course" / "build the course from [file]".
 ---
 
 # generate-content
 
-Generate training and product content for Nexudus features. Supports five output types — one feature input can produce multiple outputs in a single session.
+Generate training and product content for Nexudus features. Supports six output types — one feature input can produce multiple outputs in a single session.
 
 **Preferences (read first):** load `preferences.md` in this skill folder before Step 1. It holds user-maintained overrides for language & tone, design tokens, course defaults, and screenshot conventions. Any field set there overrides the defaults in this file and the reference templates; blank fields fall back to the built-in defaults. When a Step 3 question's answer is already fixed in `preferences.md`, skip asking it and note that it came from preferences.
 
@@ -14,6 +14,7 @@ Generate training and product content for Nexudus features. Supports five output
 | Type | Audience | Output |
 |---|---|---|
 | Product Update | Space operators and customers (external) | `.html` |
+| One-Pager | Sales, onboarding, and space operators (both internal and external) | Single-page A4 landscape `.html` |
 | Webinar Brief | Training team and webinar hosts (internal) | `.html` |
 | Video Script | Nexudus Unlocked YouTube series (external) | `.html` |
 | Training Script | Internal micro-learning sessions | `.html` |
@@ -25,6 +26,7 @@ The Academy Lesson produces two files: the human-readable HTML (source for the m
 
 - "generate content", "generate outputs", "create content for [feature]"
 - "product update", "write a product update", "draft a product update"
+- "one-pager", "feature one-pager", "make a one-pager for [feature]", "selling one-pager"
 - "webinar brief", "generate a brief", "create a webinar brief"
 - "video script", "unlocked script", "write a video script"
 - "training script", "write a training script"
@@ -41,10 +43,11 @@ Always ask this first, before requesting any source material — even if the use
 > "Which content would you like me to generate? I can produce any or all of the following:
 >
 > 1. **Product Update** — external-facing doc for operators and customers
-> 2. **Webinar Brief** — host guide for the training team and webinar hosts
-> 3. **Video Script** — Nexudus Unlocked script with screen cues and narration
-> 4. **Training Script** — full internal session script with trainer notes and Kahoot
-> 5. **Academy Lesson** — structured lesson outline for Articulate Rise / SCORM
+> 2. **One-Pager** — single A4 landscape page highlighting features, capabilities, and selling points (no step-by-step instructions)
+> 3. **Webinar Brief** — host guide for the training team and webinar hosts
+> 4. **Video Script** — Nexudus Unlocked script with screen cues and narration
+> 5. **Training Script** — full internal session script with trainer notes and Kahoot
+> 6. **Academy Lesson** — structured lesson outline for Articulate Rise / SCORM
 >
 > You can choose one or several."
 
@@ -182,6 +185,21 @@ Tell the user they can leave any field blank and it will be marked `[TBC]`.
 - Format: long version, high-level summary, or both?
 - Any unresolved items or unknowns I should flag as [TBC]?
 ```
+
+---
+
+### One-Pager — questions to ask
+
+```
+**One-Pager**
+- Primary reader: sales/onboarding team, space operators, or both? (default: both)
+- Change type: new feature or update/redesign/improvement? (I'll infer from the source when clear)
+- Capability scope: [I'll choose the number of items that best represents the source material]
+- Release date / context for the footer: e.g. "Admin Panel v5 · Released March 2026" or [TBC]
+- Any unresolved items or unknowns I should flag as [TBC]?
+```
+
+Do **not** ask for demo steps, session dates, or hosts — a one-pager contains no instructions. In branch-scan mode, auto-fill the eyebrow and release context from commit messages where possible.
 
 ---
 
@@ -323,6 +341,94 @@ Notes:
 **Validate against `reference/format-quick-check.md` before saving.**
 
 **File naming:** `[Feature Name] - Product Update.html`
+
+---
+
+## One-Pager — generation
+
+A one-pager **sells** the feature; it does not teach it. The hard rule: **no numbered steps, no
+"Navigate to… click…" walkthroughs.** If a capability needs instructions to be understood, it
+belongs in the Product Update instead. A one-pager may show *where* a feature lives (one bolded
+path per card) but never how to use it.
+
+**Load before generating:**
+- `reference/one-pager-format.md` — page layout, card rules, icon set, print CSS (always)
+- `reference/nexudus-product-context.md` — terminology and navigation conventions
+- The **`nexudus-branding`** skill — logo usage, colour palette, typography, icon rules (always)
+- The **`nexudus-brand-voice`** skill — tone of voice for all copy (always)
+- Use the bundled official Nexudus orange logo:
+  `reference/assets/nexudus-logo-orange.png`
+
+**Document structure** (single A4 landscape sheet, top to bottom):
+```
+[Header row]
+  Left:  [EYEBROW — "What's new in Admin Panel v5" or "What's changed in Admin Panel v5"]
+         [topic-specific icon] [FEATURE NAME — H1, Parkinsans Semi-Bold]
+         [Tagline — one sentence, headline benefit, max ~15 words]
+  Right: [Nexudus logo — primary orange wordmark, ≥125px wide, clear space respected]
+
+[Key benefits]
+  3–4 benefit statements side by side, each ≤8 words, Poppins Semi-Bold, Navy
+
+[Capabilities — content-led count in a balanced grid]
+  Each item: [icon chip] + [capability title] + [concise description or bullets] + [optional "Where:" path]
+
+[Footer]
+  Left: product surface + release context · Right: learn.nexudus.com
+```
+
+**Rules:**
+- Exactly one page — content that overflows the 297mm × 210mm sheet means cut copy, never scroll
+- Tagline answers "why should I care?" — if the source material doesn't carry the answer and it
+  can't be safely inferred, insert the `[PROMPT — What does this update solve? ...]` placeholder
+  (see "The core question" above) — never invent a benefit
+- Header wording distinguishes new from changed work: use **"What's new in Admin Panel v5"** for
+  a new feature and **"What's changed in Admin Panel v5"** for an existing feature that has been
+  updated, redesigned, or improved. Infer the change type from the source when clear; ask only
+  when it is genuinely ambiguous.
+- Choose the number of capabilities from the feature's actual scope; do not cap the document at
+  four or six items. Include distinct customer-relevant capabilities and arrange them in a
+  balanced two- or three-column grid suited to their amount of copy.
+- Add one small thematic icon beside the title (for example, a document icon for document
+  templates or connected nodes for Workflows). Use an inline SVG, orange glyph on a pale-orange
+  chip, and select a symbol for the overall subject rather than duplicating a capability icon.
+- Prevent text from overflowing the sheet, dividers, or capability panels. Use shrinkable grid
+  tracks (`minmax(0, 1fr)`), `min-width: 0` on grid children, and wrapping for long headings and
+  copy. Use the available page area evenly without large empty gaps. Verify rendered bounds;
+  never rely on clipping to conceal overflow.
+- Selling points are concrete capabilities, not adjectives — no "seamless", "powerful", "game-changing"
+- Icons: inline SVG only (orange glyph on `#FFF2EC` chip), no screenshots, no external icon CDNs
+- Colours: Nexudus Orange `#FE4D00` must appear; headings Navy `#212C6A`; body Text Grey `#535060`
+  on White `#FDFDFD`. Only approved text/background pairs from the branding skill
+- Fonts: Parkinsans for display/headings, Poppins for body — Regular to Semi-Bold weights only
+- Logo: top-right of the header row, primary orange wordmark, never recoloured or stretched,
+  clear space of 1× the "N" width on all sides
+- Bold navigation paths where shown: `**CRM > Customer record > Benefits**`
+- Spell out Admin Panel, Members Portal, Virtual Office — never AP, MP, VO
+- `[TBC]` for anything unconfirmed (dates, pricing, availability)
+
+**Generation mechanism:** same as other types — write a Python script to `/tmp/gen_one_pager.py`
+that writes the HTML directly to disk using the boilerplate in `reference/docx-generation.md`
+(replace its CSS block with the print-ready sheet CSS from `reference/one-pager-format.md`).
+Render the capability grid with CSS Grid; select the number of columns and rows to suit the
+capability count and keep the layout balanced on the fixed landscape page.
+
+Before writing the HTML, copy the bundled logo to the feature output folder as
+`assets/nexudus-logo-orange.png` and use a relative `assets/nexudus-logo-orange.png` image source
+so the `.html` remains portable. Enforce a display width of approximately **125–160px** and retain
+the logo's original aspect ratio (`2494 × 438`, cropped only if the asset itself is resupplied).
+
+**Validate against `reference/format-quick-check.md` before saving** — skip the "Steps" and
+"Media placeholders" sections (a one-pager has neither); apply every other section, plus:
+- [ ] Fits one A4 landscape page with no overflow
+- [ ] Uses the correct "What's new/changed in Admin Panel v5" header
+- [ ] Capability count reflects the feature scope; text stays within grid cells and dividers
+- [ ] Nexudus logo present top-right, correct colour, minimum size, clear space
+- [ ] No step-by-step instructions anywhere
+- [ ] Capability descriptions are concise; key-benefit items ≤8 words
+- [ ] Orange appears; only approved colour pairings used
+
+**File naming:** `[Feature Name] - One-Pager.html`
 
 ---
 
@@ -584,3 +690,4 @@ After all files are saved, report:
 3. Any `[PROMPT — What does this update solve? ...]` placeholders left in the content — ask the user for the answer and offer to fold it into the file(s)
 4. Any demo steps using placeholder data (prompt to confirm real environment details)
 5. Any media placeholders (`[GIF — ...]`, `[SCREENSHOT — ...]`) that need assets captured
+6. For One-Pagers: confirm that the official Nexudus orange logo is saved beside the HTML under `assets/nexudus-logo-orange.png`, and remind the user to open the file in a browser and print to PDF (A4 landscape) to verify it fits one page
