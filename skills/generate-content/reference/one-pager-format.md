@@ -50,7 +50,7 @@ top to bottom:
 │ [CAPABILITIES — a content-led number of cards, in a balanced grid]   │
 │ [icon + title + concise description/bullets]                        │
 ├──────────────────────────────────────────────────────────────────────┤
-│ [FOOTER — left: product surface + version/date · right: learn.nexudus.com] │
+│ [FOOTER — left: product surface + release context · right: revision ID + learn.nexudus.com] │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -145,9 +145,13 @@ top to bottom:
 
 ### 5. Footer
 
-- Left: product surface and context, e.g. "Admin Panel v5 · Released [Month Year]" or "[TBC]" if
-  the date is unconfirmed.
-- Right: "learn.nexudus.com"
+- Left: product surface and release context, e.g. "Admin Panel v5 · Released [Month Year]" or
+  "[TBC]" if the release date is unconfirmed.
+- Right: a compact document revision ID followed by "learn.nexudus.com".
+- Format the revision ID as `V<major>.<minor>.<DD>.<MM>.<YY>`, for example `V1.0.26.11.26`
+  for the first version made on 26 November 2026. Start each one-pager at `V1.0`; increment the
+  minor number for every subsequent content revision (e.g. `V1.1`), and set the date portion to
+  the date that revision is made. Keep the revision ID separate from the product release date.
 - Small, Text Grey `#535060`, Poppins Regular, 12px.
 
 ## Icons
@@ -256,5 +260,6 @@ CARDS:
                                     invoice.
   [gear]   Exports                 Download the history as CSV for billing or support queries.
 
-FOOTER:       Admin Panel v5 · Released [TBC]          learn.nexudus.com
+FOOTER:       Admin Panel v5 · Released [TBC]          V1.0.26.11.26 · learn.nexudus.com
 ```
+
